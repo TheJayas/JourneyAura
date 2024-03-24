@@ -1,6 +1,6 @@
-import ErrorHandler from "../Utils/errorHandler";
-import catchAsyncErrors from "../Middleware/catchAsyncErrors";
-import User from "../Models/UserModel";
+import ErrorHandler from "../Utils/errorHandler.js";
+import catchAsyncErrors from "../Middleware/catchAsyncErrors.js";
+import User from "../Models/UserModel.js";
 import sendToken from "../Utils/jwtToken";
 import crypto from "crypto";
 
