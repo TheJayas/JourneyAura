@@ -1,6 +1,6 @@
-import app from "./app";
+import app from "./app.js";
 import dotenv from "dotenv";
-import connectDatabase from "./Config/Database";
+import connectDatabase from "./Config/Database.js";
 
 //Handling uncaught Exception
 

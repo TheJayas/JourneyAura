@@ -1,4 +1,4 @@
-import ErrorHandler from "../Utils/errorHandler";
+import ErrorHandler from "../Utils/errorHandler.js";
 
 const errorHandlerMiddleware = (err,req,res,next) => {
     err.statusCode = err.statusCode || 500;
