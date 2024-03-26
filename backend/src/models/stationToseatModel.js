@@ -9,10 +9,15 @@ const stationToseat = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Station'
     },
-    seatsBooked : [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+    seatsBooked: [{
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        },
+        seatNumber: Number
     }],
+    
+
     date: Date
 });
 
