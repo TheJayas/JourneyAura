@@ -10,10 +10,12 @@ app.use(express.urlencoded({extended: true}));
 import userRouter from './routes/user.routes.js';
 import trainRouter from './routes/train.routes.js';
 import stationRouter from './routes/station.routes.js';
+import bookingRouter from './routes/booking.routes.js';
 
 app.use('/api/v1/user',userRouter);
 app.use('/api/v1/train',trainRouter);
 app.use('/api/v1/station',stationRouter);
+app.use('/api/v1/booking',bookingRouter);
 
 export {
     app

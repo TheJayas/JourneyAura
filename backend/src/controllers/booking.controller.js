@@ -13,13 +13,14 @@ const bookTicket = asyncHandler(async (req, res) => {
     const userId = req.params.id;
     const seats = [];
     
+    
     // Fetch all stations between from_station and to_station
     const stations = await StationToSeat.find({ 
-        trainId, 
+        trainId,
         stationId: { $in: [from_station, to_station] }, // Only consider from_station and to_station
         date 
     });
-    
+    console.log(stations);
     for (let seatNumber = 1; seatNumber <= 70; seatNumber++) {
         let isSeatAvailable = true;
 

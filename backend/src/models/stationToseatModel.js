@@ -2,12 +2,10 @@ import mongoose from "mongoose";
 
 const stationToseat = new mongoose.Schema({
     trainId : {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Train'
+        type:Number
     },
     stationId : {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Station'
+        type:Number
     },
     seatsBooked: [{
         user: {
