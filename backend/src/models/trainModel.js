@@ -16,7 +16,10 @@ const trainSchema = new mongoose.Schema({
     runsOnDays : [{
         type:Number
     }],
-    intermediateStations: {type:[Number],unique:true}
+    intermediateStations: [{
+        type:Number,
+        unique:true
+    }]
 });
 
 const Train = mongoose.model("Train",trainSchema);
