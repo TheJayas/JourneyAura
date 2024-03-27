@@ -6,7 +6,7 @@ import { ApiError } from "../utils/ApiError.js";
 
 //register train
 
-const bookTicker = asyncHandler(async(req,res)=>{
+const bookTicket = asyncHandler(async(req,res)=>{
     const {trainId,from_station,to_station,date} = req.body;
     const userId = req.params.id;
     const bookedSeat1= await StationToSeat.findOne({trainId,stationId:from_station,date});

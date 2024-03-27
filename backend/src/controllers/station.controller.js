@@ -21,20 +21,18 @@ const registerStation= asyncHandler(async(req,res)=>{
 });
 
 const getStationDetails = asyncHandler(async(req,res)=>{
-    const station = await Station.findById(req.user.id);
+    const station = (await Station.find({stationNumber:req.params.id}))[0];
     return res.json(new ApiResponse(200,station));
 });
 
 
 const updateStation = asyncHandler(async(req,res)=>{
     const {stationName,stationNumber,platformCount} = req.body;
-    const station = await Station.findById(req.user.id);
+    const station = (await Station.find({stationNumber:stationNumber}))[0];
     if(!station){
-        return res.json(new ApiError(401,"Train not found"));
+        return res.json(new ApiError(401,"Station not found"));
     }
-    if(stationName)
-    {station.stationName = stationName;}
-    if(stationNumber){station.stationNumber = stationNumber;}
+    if(stationName){station.stationName = stationName;}
     if(platformCount){station.platformCount = platformCount;}
 
     await station.save();

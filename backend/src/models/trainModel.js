@@ -16,7 +16,7 @@ const trainSchema = new mongoose.Schema({
     runsOnDays : [{
         type:Number
     }],
-    intermediateStations: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Station' }]
+    intermediateStations: {type:[Number],unique:true}
 });
 
 const Train = mongoose.model("Train",trainSchema);
