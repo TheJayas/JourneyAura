@@ -1,11 +1,22 @@
 import './App.css'
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import Layout from "./components/Layout"
+import Home from './components/Home'
+import { SignupForm } from './components/sign-up-form'
+import { SigninForm } from './components/sign-in-form'
 
 function App() {
 
   return (
-    <>
-      <h1 className="flex justify-center items-center text-zinc-200 text-6xl bg-black h-screen w-screen">JOURNEY AURA</h1>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout/>}>
+          <Route index element={<Home/>} />
+        </Route>
+        <Route path="sign-up" element={<SignupForm/>} />
+        <Route path="sign-in" element={<SigninForm/>} />
+      </Routes>
+   </BrowserRouter>
   )
 }
 
