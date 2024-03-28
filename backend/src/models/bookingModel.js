@@ -2,24 +2,20 @@ import mongoose from "mongoose";
 
 const bookingSchema = new mongoose.Schema({
     trainId : {
-        type:mongoose.Schema.Types.ObjectId,
-        ref: 'Train'
+        type:Number
     },
     from_station : {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Station'
+        type:Number
     },
     to_station : {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Station'
+        type:Number
     },
     userId : {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
     seatId : {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'StationToSeat'
+        type:Number
     },
     status : {
         type: String,

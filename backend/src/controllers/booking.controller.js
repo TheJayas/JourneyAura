@@ -13,47 +13,94 @@ const bookTicket = asyncHandler(async (req, res) => {
     const userId = req.params.id;
     const seats = [];
     
-    
-    // Fetch all stations between from_station and to_station
-    const stations = await StationToSeat.find({ 
-        trainId,
-        stationId: { $in: [from_station, to_station] }, // Only consider from_station and to_station
-        date 
-    });
-    console.log(stations);
-    for (let seatNumber = 1; seatNumber <= 70; seatNumber++) {
-        let isSeatAvailable = true;
-
-        // Check if the seat is available from starting station to ending station considering intermediate stations
-        for (const station of stations) {
-            const bookedSeatsAtStation = station.seatsBooked.map(seat => seat.seatNumber);
-            if (bookedSeatsAtStation.includes(seatNumber)) {
-                isSeatAvailable = false;
-                break;
+    const train=await Train.findOne({trainNumber:trainId});
+    let maxseatBooked=0;
+    for(let i=0;i<train.intermediateStations.length;i++)
+    {
+        if(train.intermediateStations[i]==from_station)
+        {
+            while(i<train.intermediateStations.length && train.intermediateStations[i]!=to_station)
+            {
+                const stations_status = await StationToSeat.findOne({ 
+                    trainId,
+                    stationId: train.intermediateStations[i],
+                    date 
+                });
+                // console.log(stations_status);
+                if(stations_status){maxseatBooked=Math.max(maxseatBooked,stations_status.seatsBooked.length);}
+                i++;
             }
-        }
-
-        // If seat is available, add it to the list of available seats
-        if (isSeatAvailable) {
-            seats.push(seatNumber);
+            break;
         }
     }
-
-    if (seats.length === 0) {
-        return res.json(new ApiError(400, "No available seats."));
+    console.log(maxseatBooked);
+    // Fetch all stations between from_station and to_station
+    if(train.seatCount<=maxseatBooked){return res.json(new ApiError(400, "No available seats."));}
+    
+    for(let i=0;i<train.intermediateStations.length;i++)
+    {
+        if(train.intermediateStations[i]==from_station)
+        {
+            while(i<train.intermediateStations.length && train.intermediateStations[i]!=to_station)
+            {
+                console.log(i);
+                const stations_status = await StationToSeat.findOne({ 
+                    trainId,
+                    stationId: train.intermediateStations[i],
+                    date 
+                });
+                if(!stations_status)
+                {
+                    const stations_status1=await StationToSeat.create({ 
+                        trainId,
+                        stationId: train.intermediateStations[i],
+                        date 
+                    }); 
+                    stations_status1.seatsBooked.push({user:userId,seatNumber:maxseatBooked+1});
+                    console.log(stations_status1);
+                }
+                else{stations_status.seatsBooked.push({user:userId,seatNumber:maxseatBooked+1});stations_status.save();}
+                i++;
+            }
+            break;
+        }
     }
+    
+    // for (let seatNumber = 1; seatNumber <= 70; seatNumber++) {
+    //     let isSeatAvailable = true;
+
+    //     // Check if the seat is available from starting station to ending station considering intermediate stations
+    //     for (const station of stations) {
+    //         const bookedSeatsAtStation = station.seatsBooked.map(seat => seat.seatNumber);
+    //         if (bookedSeatsAtStation.includes(seatNumber)) {
+    //             isSeatAvailable = false;
+    //             break;
+    //         }
+    //     }
+
+    //     // If seat is available, add it to the list of available seats
+    //     if (isSeatAvailable) {
+    //         seats.push(seatNumber);
+    //     }
+    // }
+
+    // if (seats.length === 0) {
+    //     return res.json(new ApiError(400, "No available seats."));
+    // }
 
     // For simplicity, let's just choose the first available seat
-    const selectedSeat = seats[0];
+    // const selectedSeat = seats[0];
 
     // Book the ticket
+    // return res.json(new ApiError(400, "No available seats."));
     const booking = await Booking.create({
         trainId,
         from_station,
         to_station,
-        seatId: selectedSeat, // Assuming you have a field to store the seat number in the Booking model
+        seatId: maxseatBooked+1, // Assuming you have a field to store the seat number in the Booking model
         userId,
-        date
+        date,
+        status: "confirmed"
     });
 
     if (!booking) {
