@@ -12,22 +12,19 @@ const bookTicket = asyncHandler(async (req, res) => {
     const { trainId, from_station, to_station, date } = req.body;
     const userId = req.params.id;
     const seats = [];
-    
-    const train=await Train.findOne({trainNumber:trainId});
-    let maxseatBooked=0;
-    for(let i=0;i<train.intermediateStations.length;i++)
-    {
-        if(train.intermediateStations[i]==from_station)
-        {
-            while(i<train.intermediateStations.length && train.intermediateStations[i]!=to_station)
-            {
-                const stations_status = await StationToSeat.findOne({ 
+
+    const train = await Train.findOne({ trainNumber: trainId });
+    let maxseatBooked = 0;
+    for (let i = 0; i < train.intermediateStations.length; i++) {
+        if (train.intermediateStations[i] == from_station) {
+            while (i < train.intermediateStations.length && train.intermediateStations[i] != to_station) {
+                const stations_status = await StationToSeat.findOne({
                     trainId,
                     stationId: train.intermediateStations[i],
-                    date 
+                    date
                 });
                 // console.log(stations_status);
-                if(stations_status){maxseatBooked=Math.max(maxseatBooked,stations_status.seatsBooked.length);}
+                if (stations_status) { maxseatBooked = Math.max(maxseatBooked, stations_status.seatsBooked.length); }
                 i++;
             }
             break;
@@ -35,37 +32,33 @@ const bookTicket = asyncHandler(async (req, res) => {
     }
     console.log(maxseatBooked);
     // Fetch all stations between from_station and to_station
-    if(train.seatCount<=maxseatBooked){return res.json(new ApiError(400, "No available seats."));}
-    
-    for(let i=0;i<train.intermediateStations.length;i++)
-    {
-        if(train.intermediateStations[i]==from_station)
-        {
-            while(i<train.intermediateStations.length && train.intermediateStations[i]!=to_station)
-            {
+    if (train.seatCount <= maxseatBooked) { return res.json(new ApiError(400, "No available seats.")); }
+
+    for (let i = 0; i < train.intermediateStations.length; i++) {
+        if (train.intermediateStations[i] == from_station) {
+            while (i < train.intermediateStations.length && train.intermediateStations[i] != to_station) {
                 console.log(i);
-                const stations_status = await StationToSeat.findOne({ 
+                const stations_status = await StationToSeat.findOne({
                     trainId,
                     stationId: train.intermediateStations[i],
-                    date 
+                    date
                 });
-                if(!stations_status)
-                {
-                    const stations_status1=await StationToSeat.create({ 
+                if (!stations_status) {
+                    const stations_status1 = await StationToSeat.create({
                         trainId,
                         stationId: train.intermediateStations[i],
-                        date 
-                    }); 
-                    stations_status1.seatsBooked.push({user:userId,seatNumber:maxseatBooked+1});
+                        date
+                    });
+                    stations_status1.seatsBooked.push({ user: userId, seatNumber: maxseatBooked + 1 });
                     console.log(stations_status1);
                 }
-                else{stations_status.seatsBooked.push({user:userId,seatNumber:maxseatBooked+1});stations_status.save();}
+                else { stations_status.seatsBooked.push({ user: userId, seatNumber: maxseatBooked + 1 }); stations_status.save(); }
                 i++;
             }
             break;
         }
     }
-    
+
     // for (let seatNumber = 1; seatNumber <= 70; seatNumber++) {
     //     let isSeatAvailable = true;
 
@@ -97,7 +90,7 @@ const bookTicket = asyncHandler(async (req, res) => {
         trainId,
         from_station,
         to_station,
-        seatId: maxseatBooked+1, // Assuming you have a field to store the seat number in the Booking model
+        seatId: maxseatBooked + 1, // Assuming you have a field to store the seat number in the Booking model
         userId,
         date,
         status: "confirmed"
@@ -110,4 +103,39 @@ const bookTicket = asyncHandler(async (req, res) => {
     return res.json(new ApiResponse(200, booking));
 });
 
-export {bookTicket}; 
+const cancelTicket = asyncHandler(async (req, res) => {
+    const bookingId = req.params.id;
+    const booking = await Booking.findById(bookingId);
+    if (!booking) {
+        return res.json(new ApiError(404, "Booking not found"));
+    }
+    const train = await Train.findOne({ trainNumber: booking.trainId });
+    let stations = [];
+    for (let i = 0; i < train.intermediateStations.length; i++) {
+        if (train.intermediateStations[i] == booking.from_station) {
+            while (i < train.intermediateStations.length && train.intermediateStations[i] != booking.to_station) {
+                const stations_status = await StationToSeat.findOne({
+                    trainId: booking.trainId,
+                    stationId: train.intermediateStations[i],
+                    date: booking.date
+                });
+                stations.push(stations_status);
+                i++;
+            }
+            break;
+        }
+    }
+    for (const station of stations) {
+        const seatIndex = station.seatsBooked.findIndex(seat => seat.user == booking.userId && seat.seatNumber == booking.seatId);
+        if (seatIndex !== -1) {
+            station.seatsBooked.splice(seatIndex, 1);
+            station.save();
+        }
+    }
+    booking.status = "cancelled";
+    booking.save();
+    return res.json(new ApiResponse(200, booking));
+}
+);
+
+export { bookTicket, cancelTicket }; 
