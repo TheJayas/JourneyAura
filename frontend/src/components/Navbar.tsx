@@ -11,9 +11,9 @@ const Navbar = () => {
           <MenuItem setActive={setActive} active={active} item="Trains">
             <div className="flex flex-col space-y-4 text-sm">
               <HoveredLink href="/">Search Trains</HoveredLink>
-              <HoveredLink href="/individual">Book Tickets</HoveredLink>
-              <HoveredLink href="/team">PNR Enquiry</HoveredLink>
-              <HoveredLink href="/enterprise">Cancel Tickets</HoveredLink>
+              <HoveredLink href="/">Book Tickets</HoveredLink>
+              <HoveredLink href="/">PNR Enquiry</HoveredLink>
+              <HoveredLink href="/">Cancel Tickets</HoveredLink>
             </div>
           </MenuItem>
           <MenuItem setActive={setActive} active={active} item="Account">
