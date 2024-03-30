@@ -21,7 +21,10 @@ const bookingSchema = new mongoose.Schema({
         type: String,
         enum: ['confirmed','waiting']
     },
-    date: Date
+    date: {
+        type: Date,
+        index: { expires: '1d' } 
+    }
 });
 
 const Booking = mongoose.model("Booking",bookingSchema);
