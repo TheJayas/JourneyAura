@@ -104,12 +104,14 @@ const bookTicket = asyncHandler(async (req, res) => {
 });
 
 const cancelTicket = asyncHandler(async (req, res) => {
-    const bookingId = req.params.id;
-    const booking = await Booking.findById(bookingId);
+    const {from_station,to_station,date} = req.body;
+    const booking = await Booking.find({user:req.params.id,from_station:from_station,to_station:to_station,status: "confirmed",date:date});
+
     if (!booking) {
         return res.json(new ApiError(404, "Booking not found"));
     }
-    const train = await Train.findOne({ trainNumber: booking.trainId });
+
+    const train = await Train.find({ trainNumber: booking.trainId });
     let stations = [];
     for (let i = 0; i < train.intermediateStations.length; i++) {
         if (train.intermediateStations[i] == booking.from_station) {
