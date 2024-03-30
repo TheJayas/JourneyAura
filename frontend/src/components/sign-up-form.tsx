@@ -17,20 +17,20 @@ export function SignupForm() {
         Welcome to Journey Aura
       </h2>
       <p className="max-w-sm mt-2 text-neutral-300 text-center">
-        Register to Journey Aura
+        Create Your Account
       </p>
 
       <form className="my-4" onSubmit={handleSubmit}>
         <LabelInputContainer className="mb-4">
-          <Label htmlFor="name" className="text-white">Name</Label>
-          <Input id="name" placeholder="Tyler" type="text" className="rounded-xl"/>
+          <Label htmlFor="name" className="text-white">Username</Label>
+          <Input id="name" placeholder="username" type="text" className="rounded-xl"/>
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
-          <Label htmlFor="email" className="text-white">Email Address</Label>
-          <Input id="email" placeholder="projectmayhem@fc.com" type="email" className="rounded-xl" />
+          <Label htmlFor="email" className="text-white">Email</Label>
+          <Input id="email" placeholder="email@gmail.com" type="email" className="rounded-xl" />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
-          <Label htmlFor="Number" className="text-white">Phone Number</Label>
+          <Label htmlFor="Number" className="text-white">Mobile</Label>
           <Input id="firstname" placeholder="9999999999" type="tel" maxLength={10} minLength={10} className="rounded-xl"/>
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">

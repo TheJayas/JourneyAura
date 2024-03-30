@@ -31,7 +31,7 @@ function withSplashScreen<T extends Props>(WrappedComponent: React.ComponentType
           this.setState({
             loading: false,
           });
-        }, 4000);
+        }, 2000);
       } catch (err) {
         console.log(err);
         this.setState({
