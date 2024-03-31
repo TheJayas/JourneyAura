@@ -19,4 +19,31 @@ const allDB = asyncHandler(async(req,res)=>{
         return res.json(new ApiError(401,"Unexpected error"));
     }
 });
-export {allDB};
+const trainDB = asyncHandler(async(req,res)=>{
+    try {
+        const trains= await Train.find();
+        return res.json(new ApiResponse(200,trains));
+    } catch (err) {
+        console.error(err);
+        return res.json(new ApiError(401,"Unexpected error"));
+    }
+});
+const routesDB = asyncHandler(async(req,res)=>{
+    try {
+        const TRoutes= await Route.find();
+        return res.json(new ApiResponse(200,TRoutes));
+    } catch (err) {
+        console.error(err);
+        return res.json(new ApiError(401,"Unexpected error"));
+    }
+});
+const stationDB = asyncHandler(async(req,res)=>{
+    try {
+        const stations= await Station.find();
+        return res.json(new ApiResponse(200,stations));
+    } catch (err) {
+        console.error(err);
+        return res.json(new ApiError(401,"Unexpected error"));
+    }
+});
+export {allDB,trainDB,routesDB,stationDB};
