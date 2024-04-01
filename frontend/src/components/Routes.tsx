@@ -2,24 +2,26 @@ import { Component } from "react";
 import axios from "axios";
 import { Button } from "./ui/button";
 import { DataTable } from "./DataTable";
-import { EventColumns } from "./columns/Trains-columns";
+import { RoutesColumns } from "./columns/Routes-columns";
+import { RoutesT } from "./columns/Routes-columns";
+
 class TRoutes extends Component {
 constructor(props: any) {
     super(props);
     this.state = {
-        trainmodels:{} as {"data": [{"_id":"","name":"","trainNumber":1,"seatCount":100,"coachCount":10,"runsOnDays":[],"intermediateStations":[],"__v":9}]},
+        routesmodels:{} as {"data": [{"_id":"","routeId":1,"trainId":1,"stationId":100,"arrivalTime":"12:00","departureTime":"12:00","date":"","__v":9}]},
         error: null as string | null
     };
 }
 
 state = {
-    trainmodels: {} as {"data": [{"_id":"","name":"","trainNumber":1,"seatCount":100,"coachCount":10,"runsOnDays":[],"intermediateStations":[],"__v":9}]},
+    routesmodels:{} as {"data": [{"_id":"","routeId":1,"trainId":1,"stationId":100,"arrivalTime":"12:00","departureTime":"12:00","date":"","__v":9}]},
     error: null as string | null
 };
 
 // Update the state type
 componentDidMount() {
-    axios.get('http://localhost:3000/api/v1/admin/traindb')
+    axios.get('http://localhost:3000/api/v1/admin/routedb')
         .then(response => {
             this.setState({ trainmodels: response.data });
         })
@@ -29,40 +31,35 @@ componentDidMount() {
 }
 
 render() {
-    const Tmodels=this.state.trainmodels["data"];
-    const sample=[{"name":"a","id":"1"},{"name":"b","id":"2"}];
-    if(Tmodels){Tmodels.forEach(element => {
-        console.log(element);
-    });}
+    const Rmodels=this.state.routesmodels["data"];
+    const sampleData=[] as RoutesT[];
+    if(Rmodels){
+        Rmodels.forEach(element => {
+            sampleData.push({
+                "id":element._id,
+                "routeId": element.routeId,
+                "trainId":element.trainId,
+                "stationId":element.stationId,
+                "arrivalTime":element.arrivalTime,
+                "departureTime":element.departureTime,
+                "date":element.date
+            })
+        });
+        console.log(Rmodels);
+    }
     
-    // const countTrains = models ? models["trains"].length: 0;
-    // const countStations = models ? models["stations"].length: 0;
-    // const countRoutes = models ? models["routes"].length: 0;
-    // const models_arr = [
-    //   { name: "Trains", description:"Data of Available Trains",entries: countTrains, link: "admin/trains" },
-    //   { name: "Stations", description:"Data of Available Stations",entries: countStations, link: "admin/stations" },
-    //   { name: "Routes", description:"Data of each Train Routes",entries: countRoutes, link: "admin/routes" }
-    // ];
-
-    // const routes=models["routes"];
-    // const trains=models.trains;
-    // const stations=models.stations;
-    // console.log(routes);
-    // console.log(trains);
-    // console.log(stations);
     return (
-        <div className="flex flex-col items-center gap-5 h-screen w-screen justify-center bg-white">
-            <h1 className="text-black text-5xl pb-5 font-medium font-mono">Trains</h1>
-            <div className="flex w-lvw flex-col items-center gap-5 overflow-x-hidden">
-            <Button asChild className={"bg-blue-600 rounded-xl hover:bg-blue-400"}>
-                <a href="/admin/events/add">Add a new Train</a>
+        <div className="flex flex-col items-center h-screen w-screen justify-evenly bg-gray-200">
+            <h1 className="text-zinc-900 text-5xl h-10  flex flex-col items-center justify-end font-medium font-mono">Stations</h1>
+            <div className="flex w-lvw flex-col items-center gap-10 overflow-x-hidden">
+            <Button asChild className={"bg-blue-700 rounded-xl hover:bg-blue-600 text-white"}>
+                <a href="/admin/events/add" className="text-white">Add a new Station</a>
             </Button>
-
-            <DataTable columns={EventColumns} data={sample} />
+            <DataTable columns={RoutesColumns} data={sampleData} />
+            </div>
+            <div className="h-20"></div>
         </div>
-        </div>
-
-    );
+);
 }
 
 }

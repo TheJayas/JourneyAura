@@ -31,7 +31,7 @@ export const DeleteAlertDialog: React.FC<DeleteAlertDialogProps> = ({
                     <Trash2 size={16} />
                 </Button>
             </AlertDialogTrigger>
-            <AlertDialogContent>
+            <AlertDialogContent className="bg-zinc-800 text-white rounded-xl border">
                 <AlertDialogHeader>
                     <AlertDialogTitle>
                         Are you absolutely sure?
@@ -44,7 +44,7 @@ export const DeleteAlertDialog: React.FC<DeleteAlertDialogProps> = ({
                 <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
                     <AlertDialogAction
-                        className={"border border-black hover:bg-red-600 rounded"}
+                        className={"border border-white hover:bg-red-600 rounded"}
                         onClick={(e) => action(() => window.location.reload())}
                     >
                         Continue

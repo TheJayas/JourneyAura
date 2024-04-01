@@ -38,13 +38,6 @@ render() {
       { name: "Stations", description:"Data of Available Stations",entries: countStations, link: "/admin/stations" },
       { name: "Routes", description:"Data of each Train Routes",entries: countRoutes, link: "/admin/routes" }
     ];
-
-    // const routes=models["routes"];
-    // const trains=models.trains;
-    // const stations=models.stations;
-    // console.log(routes);
-    // console.log(trains);
-    // console.log(stations);
     return (
         <div className="flex flex-col items-center gap-5 h-screen w-screen justify-center bg-zinc-900">
             <h1 className="text-white text-5xl pb-5 font-medium font-mono">Train Models</h1>

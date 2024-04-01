@@ -1,5 +1,3 @@
-"use client";
-
 import { ColumnDef } from "@tanstack/react-table";
 import { Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -8,25 +6,46 @@ import { DeleteAlertDialog } from "@/components/delete-alert-dialog";
 // import { deleteEvent } from "@/actions/event";
 import { toast } from "sonner";
 
-export type Event = {
-    name: string;
+export type Train = {
     id: string;
+    name: string;
+    trainNumber: number;
+    seatCount: number;
+    coachCount: number;
+    runsOnDays: number[];
+    intermediateStations: number[];
 };
 
-export const EventColumns: ColumnDef<Event>[] = [
+export const TrainColumns: ColumnDef<Train>[] = [
     {
         accessorKey: "name",
         header: "Name",
     },
     {
-        accessorKey: "id",
-        header: "Id",
+        accessorKey: "trainNumber",
+        header: "Train Number",
+    },
+    {
+        accessorKey: "seatCount",
+        header: "Seat Count",
+    },
+    {
+        accessorKey: "coachCount",
+        header: "Coach Count",
+    },
+    {
+        accessorKey: "runsOnDays",
+        header: "Runs On Days",
+    },
+    {
+        accessorKey: "intermediateStations",
+        header: "Intermediate Stations",
     },
     {
         id: "actions",
         cell: ({ row }) => {
-            const event = row.original;
-            const { id } = event;
+            const train = row.original;
+            const { id } = train;
 
             const handleDeleteAction = async (onSuccess?: () => void) => {
                 const toastId = toast.loading("Deleting Train, Please Wait...");

@@ -2,15 +2,13 @@ import mongoose from "mongoose";
 
 const routeSchema = new mongoose.Schema({
     routeId : {
-        type:String
+        type:Number
     },
     trainId : {
-        type:mongoose.Schema.Types.ObjectId,
-        ref: 'Train'
+        type:Number
     },
     stationId : {
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Station'
+        type:Number
     },
     arrivalTime : {
         type: Date,

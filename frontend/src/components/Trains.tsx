@@ -2,7 +2,9 @@ import { Component } from "react";
 import axios from "axios";
 import { Button } from "./ui/button";
 import { DataTable } from "./DataTable";
-import { EventColumns } from "./columns/Trains-columns";
+import { TrainColumns } from "./columns/Trains-columns";
+import { Train } from "./columns/Trains-columns";
+
 class Trains extends Component {
 constructor(props: any) {
     super(props);
@@ -30,8 +32,19 @@ componentDidMount() {
 
 render() {
     const Tmodels=this.state.trainmodels["data"];
-    const sample=[{"name":"a","id":"1"},{"name":"b","id":"2"}];
+    const sampleData=[] as Train[];
     if(Tmodels){Tmodels.forEach(element => {
+    Tmodels.forEach(element => {
+        sampleData.push({
+            "id":element._id,
+            "name": element.name,
+            "trainNumber":element.trainNumber,
+            "seatCount":element.seatCount,
+            "coachCount": element.coachCount,
+            "runsOnDays":element.runsOnDays,
+            "intermediateStations":element.intermediateStations
+        })
+    });
         console.log(element);
     });}
     
@@ -42,7 +55,7 @@ render() {
             <Button asChild className={"bg-blue-700 rounded-xl hover:bg-blue-600 text-white"}>
                 <a href="/admin/events/add" className="text-white">Add a new Train</a>
             </Button>
-            <DataTable columns={EventColumns} data={sample} />
+            <DataTable columns={TrainColumns} data={sampleData} />
             </div>
             <div className="h-20"></div>
         </div>
@@ -51,3 +64,4 @@ render() {
 }
 
 export default Trains
+ 
