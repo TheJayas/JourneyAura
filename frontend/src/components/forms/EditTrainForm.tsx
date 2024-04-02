@@ -139,13 +139,14 @@ const EditTrainForm = () => {
         return;
         // if(stationData){console.log(stationData);}
     },[])
+    useEffect(() => {
     form.setValue("name", trainData.name);
     form.setValue("trainNumber", trainData.trainNumber.toString());
     form.setValue("seatCount", trainData.seatCount.toString());
     form.setValue("coachCount", trainData.coachCount.toString());
     form.setValue("runsOnDays", trainData.runsOnDays);
     form.setValue("intermediateStations", trainData.intermediateStations);
-
+    }, [trainData]);
     const onSubmit = async (values: z.infer<typeof TrainSchema>) => {
         const toastId = toast.loading(
             "Adding Train, Please Wait...",

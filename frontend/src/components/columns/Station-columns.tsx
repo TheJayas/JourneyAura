@@ -3,8 +3,9 @@ import { Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import { DeleteAlertDialog } from "@/components/delete-alert-dialog";
-// import { deleteEvent } from "@/actions/event";
 import { toast } from "sonner";
+import { Toaster } from "../ui/sonner";
+import axios from "axios";
 
 export type Station = {
     id: string;
@@ -36,10 +37,14 @@ export const StationColumns: ColumnDef<Station>[] = [
                 const toastId = toast.loading("Deleting Station, Please Wait...");
                 try {
                     // await deleteEvent(id);
-                    toast.success("Station Deleted Successfully", {
+                    const res = await axios.get(`http://localhost:3000/api/v1/station/deleteStationById/${id}`);
+                    if(res && res.data.statusCode === 200)
+                    {
+                        toast.success("Station Deleted Successfully", {
                         id: toastId,
-                    });
-                    onSuccess?.();
+                        });
+                        onSuccess?.();
+                    }
                 } catch (error) {
                     console.error(error);
                     toast.error("Failed to delete Station", { id: toastId });
@@ -55,6 +60,7 @@ export const StationColumns: ColumnDef<Station>[] = [
                             </a>
                         </Button>
                         <DeleteAlertDialog action={handleDeleteAction} />
+                        <Toaster/>
                     </div>
                 </>
             );

@@ -50,7 +50,7 @@ render() {
             <h1 className="text-zinc-900 text-5xl h-10  flex flex-col items-center justify-end font-medium font-mono">Stations</h1>
             <div className="flex w-lvw flex-col items-center gap-10 overflow-x-hidden">
             <Button asChild className={"bg-blue-700 rounded-xl hover:bg-blue-600 text-white"}>
-                <a href="/admin/events/add" className="text-white">Add a new Station</a>
+                <a href="/admin/stations/add" className="text-white">Add a new Station</a>
             </Button>
             <DataTable columns={StationColumns} data={sampleData} />
             </div>

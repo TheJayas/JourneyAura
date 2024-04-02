@@ -10,6 +10,10 @@ import Stations from './components/Stations'
 import TRoutes from './components/Routes'
 import AddTrainForm from './components/forms/AddTrainForm'
 import EditTrainForm from './components/forms/EditTrainForm'
+import EditStationForm from './components/forms/EditStationForm'
+import AddStationForm from './components/forms/AddStationForm'
+import EditRouteForm from './components/forms/EditRouteForm'
+import AddRouteForm from './components/forms/AddRouteForm'
 // import { Toaster } from './components/ui/sonner'
 
 function App() {
@@ -27,8 +31,11 @@ function App() {
         <Route path="admin/trains/:id" element={<EditTrainForm/>}/>
         <Route path="admin/trains/add" element={<AddTrainForm/>} />
         <Route path="admin/routes" element={<TRoutes/>} />
-        {/* <Toaster /> */}
-      <Route path="admin/stations" element={<Stations/>} />
+        <Route path="admin/routes/:id" element={<EditRouteForm/>}/>
+        <Route path="admin/routes/add" element={<AddRouteForm/>} />
+        <Route path="admin/stations" element={<Stations/>} />
+        <Route path="admin/stations/:id" element={<EditStationForm/>}/>
+        <Route path="admin/stations/add" element={<AddStationForm/>} />
         <Route path="*" element={<div className='h-screen w-screen bg-black flex flex-col items-center justify-center'><h1 className='text-red-600 font-mono text-4xl animate-pulse'>Error 404 : Page not found !!</h1></div>} />
       </Routes>
    </BrowserRouter>
