@@ -8,6 +8,9 @@ import Admin from './components/Admin'
 import Trains from './components/Trains'
 import Stations from './components/Stations'
 import TRoutes from './components/Routes'
+import AddTrainForm from './components/forms/AddTrainForm'
+import EditTrainForm from './components/forms/EditTrainForm'
+// import { Toaster } from './components/ui/sonner'
 
 function App() {
 
@@ -21,7 +24,10 @@ function App() {
         <Route path="sign-in" element={<SigninForm/>} />
         <Route path="admin" element={<Admin/>} />
         <Route path="admin/trains" element={<Trains/>} />
+        <Route path="admin/trains/:id" element={<EditTrainForm/>}/>
+        <Route path="admin/trains/add" element={<AddTrainForm/>} />
         <Route path="admin/routes" element={<TRoutes/>} />
+        {/* <Toaster /> */}
       <Route path="admin/stations" element={<Stations/>} />
         <Route path="*" element={<div className='h-screen w-screen bg-black flex flex-col items-center justify-center'><h1 className='text-red-600 font-mono text-4xl animate-pulse'>Error 404 : Page not found !!</h1></div>} />
       </Routes>

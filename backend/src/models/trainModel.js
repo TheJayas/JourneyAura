@@ -3,9 +3,11 @@ import mongoose from "mongoose";
 const trainSchema = new mongoose.Schema({
     name : {
         type:String,
+        unique:true
     },
     trainNumber : {
         type:Number,
+        unique:true
     },
     seatCount : {
         type:Number
@@ -16,10 +18,9 @@ const trainSchema = new mongoose.Schema({
     runsOnDays : [{
         type:Number
     }],
-    intermediateStations: [{
-        type:Number,
-        unique:true
-    }]
+    intermediateStations : [{
+        type:Number
+    }],
 });
 
 const Train = mongoose.model("Train",trainSchema);

@@ -7,16 +7,20 @@ import { ApiError } from "../utils/ApiError.js";
 //register train
 
 const registerTrain = asyncHandler(async(req,res)=>{
-    const {name,trainNumber,seatCount,coachCount,runsOnDays} = req.body;
-    
+    const {name,trainNumber,seatCount,coachCount,runsOnDays,intermediateStations} = req.body;
+    const avtrain = (await Train.find({trainNumber:trainNumber}))[0];
+    if(avtrain){return res.json(new ApiError(401,"Train with this name already exists!"));}
     const train = await Train.create({
         name,
         trainNumber,
         seatCount,
         coachCount,
-        runsOnDays
+        runsOnDays,
+        intermediateStations
     });
+    console.log(12345)
     if(!train){
+        console.log(1223);
         return res.json(new ApiError(401,"Unexpected error"));
     }
 

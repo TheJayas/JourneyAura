@@ -1,2 +1,2 @@
 # JourneyAura
-IRCTC CLONE
+<h2>IRCTC CLONE</h2>
