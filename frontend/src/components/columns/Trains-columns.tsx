@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { DeleteAlertDialog } from "@/components/delete-alert-dialog";
 // import { deleteEvent } from "@/actions/event";
 import { toast } from "sonner";
+import { Toaster } from "../ui/sonner";
+import axios from "axios";
 
 export type Train = {
     id: string;
@@ -51,10 +53,14 @@ export const TrainColumns: ColumnDef<Train>[] = [
                 const toastId = toast.loading("Deleting Train, Please Wait...");
                 try {
                     // await deleteEvent(id);
-                    toast.success("Train Deleted Successfully", {
-                        id: toastId,
-                    });
-                    onSuccess?.();
+                    const res = await axios.get(`http://localhost:3000/api/v1/train/deleteTrainById/${id}`);
+                    console.log(res);
+                    if (res && res.data.statusCode === 200) {
+                        toast.success("Train Deleted Successfully", {
+                            id: toastId,
+                        });
+                        onSuccess?.();
+                    }
                 } catch (error) {
                     console.error(error);
                     toast.error("Failed to delete Train", { id: toastId });
@@ -70,6 +76,7 @@ export const TrainColumns: ColumnDef<Train>[] = [
                             </a>
                         </Button>
                         <DeleteAlertDialog action={handleDeleteAction} />
+                        <Toaster/>
                     </div>
                 </>
             );

@@ -3,6 +3,7 @@ import { Station } from "../models/stationModel.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { ApiError } from "../utils/ApiError.js";
+import { isValidObjectId } from "mongoose";
 
 //register train
 
@@ -29,6 +30,22 @@ const registerTrain = asyncHandler(async(req,res)=>{
 
 const getTrainDetails = asyncHandler(async(req,res)=>{
     const train = (await Train.find({trainNumber:req.params.id}))[0];
+    if(!train){
+        console.log(1223);
+        return res.json(new ApiError(401,"Unexpected error"));
+    }
+    return res.json(new ApiResponse(200,train));
+});
+
+const getTrainDetailsById = asyncHandler(async(req,res)=>{
+    console.log(req.params.id)
+    if(!isValidObjectId(req.params.id)){return res.json(new ApiError(401,"Unexpected error"));}
+    const train = (await Train.find({_id:req.params.id}))[0];
+    console.log(train)
+    if(!train){
+        console.log(1223);
+        return res.json(new ApiError(401,"Unexpected error"));
+    }
     return res.json(new ApiResponse(200,train));
 });
 
@@ -57,7 +74,7 @@ const addIntermediateStation = asyncHandler(async(req,res)=>{
 });
 
 const updateTrain = asyncHandler(async(req,res)=>{
-    const {name,trainNumber,seatCount,coachCount,runsOnDays} = req.body;
+    const {name,trainNumber,seatCount,coachCount,runsOnDays,intermediateStations} = req.body;
     const train = (await Train.find({trainNumber:trainNumber}))[0];
     if(!train){
         return res.json(new ApiError(401,"Train not found"));
@@ -67,10 +84,30 @@ const updateTrain = asyncHandler(async(req,res)=>{
     if(seatCount){train.seatCount = seatCount;}
     if(coachCount){train.coachCount = coachCount;}
     if(runsOnDays){train.runsOnDays = runsOnDays;}
+    if(intermediateStations){train.intermediateStations = intermediateStations;}
     await train.save();
     return res.json(new ApiResponse(200,train));
 });
 
+const deleteTrain = asyncHandler(async(req,res)=>{
+    const train = (await Train.find({trainNumber:req.params.id}))[0];
+    if(!train){
+        return res.json(new ApiError(401,"Train not found"));
+    }
+    console.log(train);
+    await Train.deleteOne({trainNumber:req.params.id});
+    return res.json(new ApiResponse(200,train));
+})
 
+const deleteTrainById = asyncHandler(async(req,res)=>{
+    if(!isValidObjectId(req.params.id)){return res.json(new ApiError(401,"Unexpected error"));}
+    const train = (await Train.find({_id:req.params.id}))[0];
+    if(!train){
+        return res.json(new ApiError(401,"Train not found"));
+    }
+    console.log(train);
+    await Train.deleteOne({_id:req.params.id});
+    return res.json(new ApiResponse(200,train));
+})
 
-export {registerTrain,getTrainDetails,addIntermediateStation,updateTrain};
+export {registerTrain,getTrainDetails,addIntermediateStation,updateTrain,getTrainDetailsById,deleteTrain,deleteTrainById};
