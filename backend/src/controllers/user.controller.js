@@ -5,6 +5,7 @@ import { sendToken } from "../utils/jwtToken.js";
 import { User } from "../models/userModel.js";
 import sendEmail from "../utils/sendEmail.js";
 import crypto from 'crypto';
+import { Passenger } from "../models/passengerModel.js";
 
 //register user
 
@@ -166,5 +167,44 @@ const getUserDetails = asyncHandler(async(req,res)=>{
     return res.json(new ApiResponse(200,user));
 });
 
+const addPassenger = asyncHandler(async(req,res)=>{
+    const user = await User.findById(req.user.id);
 
-export {registerUser,loginUser,logout,updateProfile,getUserDetails,updatePassword};
+    const {name,dob,berthPreference,mealPreference,govtId} = req.body;
+
+    user.passengers.push({ 
+        name,
+        dob,
+        berthPreference,
+        mealPreference,
+        govtId
+    });
+
+    await user.save();
+
+    sendToken(user,200,res);
+});
+
+const editPassenger = asyncHandler(async(req,res)=>{
+    const user = await User.findById(req.user.id);
+
+    const passenger = await Passenger.findOne({_id:req.params.id,user:req.user.id});
+
+    if(!passenger){
+        return res.json(new ApiError(404,"Passenger not found"));
+    }
+
+    const {name,dob,berthPreference,mealPreference,govtId} = req.body;
+
+    passenger.name = name;
+    passenger.dob = dob;
+    passenger.berthPreference = berthPreference;
+    passenger.mealPreference = mealPreference;
+    passenger.govtId = govtId;
+
+    await passenger.save();
+
+    sendToken(user,200,res);
+});
+
+export {registerUser,loginUser,logout,updateProfile,getUserDetails,updatePassword,forgotPassword,resetPassword,addPassenger,editPassenger};
