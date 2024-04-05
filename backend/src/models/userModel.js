@@ -32,6 +32,10 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:[true,"Please enter your address"]
     },
+    passengers: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Passenger'
+    }],
     resetPasswordToken: String,
     resetPasswordExpire: Date,
 });

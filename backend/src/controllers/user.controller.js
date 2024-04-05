@@ -167,4 +167,4 @@ const getUserDetails = asyncHandler(async(req,res)=>{
 });
 
 
-export {registerUser,loginUser,logout,updateProfile,getUserDetails,updatePassword};
+export {registerUser,loginUser,logout,updateProfile,getUserDetails,updatePassword,forgotPassword,resetPassword};
