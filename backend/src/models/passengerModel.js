@@ -20,7 +20,7 @@ const passengerSchema = new mongoose.Schema({
         enum:['veg','non-veg']
     },
     govtId : {
-        type:String,
+        type:Number,
         required:[true,"Please enter passenger's government id"]
     }
 });
