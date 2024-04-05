@@ -207,4 +207,4 @@ const editPassenger = asyncHandler(async(req,res)=>{
     sendToken(user,200,res);
 });
 
-export {registerUser,loginUser,logout,updateProfile,getUserDetails,updatePassword,forgotPassword,resetPassword};{}
+export {registerUser,loginUser,logout,updateProfile,getUserDetails,updatePassword,forgotPassword,resetPassword,addPassenger,editPassenger};
