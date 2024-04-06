@@ -24,6 +24,14 @@ const bookingSchema = new mongoose.Schema({
     date: {
         type: Date,
         index: { expires: '1d' } 
+    },
+    cancel : {
+        type: Boolean,
+    },
+    pnr : {
+        type: Number,
+        unique: true,
+        required: true
     }
 });
 
