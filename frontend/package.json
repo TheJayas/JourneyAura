@@ -20,6 +20,8 @@
     "@tsparticles/engine": "^3.3.0",
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.3.0",
+    "@typebot.io/js": "^0.2.64",
+    "@typebot.io/react": "^0.2.64",
     "antd": "^5.16.0",
     "axios": "^1.6.8",
     "class-variance-authority": "^0.7.0",
