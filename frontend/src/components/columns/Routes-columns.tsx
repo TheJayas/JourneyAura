@@ -2,7 +2,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-import { DeleteAlertDialog } from "@/components/delete-alert-dialog";
+import { DeleteAlertDialog } from "@/components/adminPanel/delete-alert-dialog";
 // import { deleteEvent } from "@/actions/event";
 import { toast } from "sonner";
 

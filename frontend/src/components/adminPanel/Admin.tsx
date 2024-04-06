@@ -1,6 +1,6 @@
 import { Component } from "react";
 import axios from "axios";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
 class Admin extends Component {
 constructor(props: any) {
     super(props);

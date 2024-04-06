@@ -1,9 +1,9 @@
 import { Component } from "react";
 import axios from "axios";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { DataTable } from "./DataTable";
-import { TrainColumns } from "./columns/Trains-columns";
-import { Train } from "./columns/Trains-columns";
+import { TrainColumns } from "../columns/Trains-columns";
+import { Train } from "../columns/Trains-columns";
 
 class Trains extends Component {
 constructor(props: any) {
