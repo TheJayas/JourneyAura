@@ -15,7 +15,6 @@ const Home = () => {
 
   // const textRef = useRef<HTMLElement | null>(null);
   const textRef = useRef<HTMLDivElement | null>(null);
-
   const { scrollYProgress } = useScroll({ target: textRef });
   const y = useTransform(scrollYProgress, [0, 1], [-90, 90]);
 
@@ -28,6 +27,9 @@ const Home = () => {
       const text1 = document.querySelector<HTMLParagraphElement>("#text1");
       const text2 = document.querySelector<HTMLParagraphElement>("#text2");
       if (!inner || !innerRect || !textEL || !imgEL || !text1 || !text2) return;
+      const k = 300;
+      const opacity = 1 - (window.scrollY /k);
+      inner.style.opacity = opacity.toString();
       // textEL.style.x=`${-100 + (window.scrollY / k)}px`;
       textEL.style.transition = "transform 0.1s linear";
       textEL.style.transform = `translateX(${-(window.scrollY)}px)`;
@@ -40,7 +42,7 @@ const Home = () => {
   },[])
   return (
     <div className='overflow-x-hidden w-full h-[200vh] flex flex-col'>
-      <div className='flex flex-row overflow-x-hidden' id='inner'>
+      <motion.div className='flex flex-row overflow-x-hidden' id='inner'>
       <motion.div className="flex flex-col gap-7 items-center justify-center px-4" id='textEl'
             initial={{
               opacity: 0,
@@ -73,10 +75,13 @@ const Home = () => {
           <img src={img1} alt="logo"  className="h-full w-full rounded-2xl"/>
           </div>
         </motion.div>
-      </div>
+      </motion.div>
       <motion.div ref={textRef} style={{ y: y }}>
         <h1 className='text-white items-center justify-center flex text-3xl'>Hello</h1>
       </motion.div>
+      <div>
+      <h1 className='text-white items-center justify-center flex text-3xl'>dfhjkljdfzkjldfx</h1>
+      </div>
       <BackgroundBeams className={"h-[200vh]"}/>
     </div>
   )
