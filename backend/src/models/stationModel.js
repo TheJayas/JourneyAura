@@ -9,7 +9,10 @@ const stationSchema = new mongoose.Schema({
     },
     platformCount : {
         type : Number,
-    }
+    },
+    state : {
+        type : String,
+    },
 });
 
 const Station = mongoose.model("Station",stationSchema);

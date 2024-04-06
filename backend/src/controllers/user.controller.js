@@ -12,13 +12,16 @@ import { Passenger } from "../models/passengerModel.js";
 const registerUser = asyncHandler(async(req,res)=>{
     
     const {name,email,password,phoneNumber,address} = req.body;
-    console.log(req.body);
+    
+    const pnr = crypto.randomBytes(4).readUint32LE(0);
+
     const user = await User.create({
         name,
         email,
         password,
         phoneNumber,
-        address
+        address,
+        pnr
     });
 
     sendToken(user,201,res);
@@ -207,4 +210,16 @@ const editPassenger = asyncHandler(async(req,res)=>{
     sendToken(user,200,res);
 });
 
-export {registerUser,loginUser,logout,updateProfile,getUserDetails,updatePassword,forgotPassword,resetPassword,addPassenger,editPassenger};
+const pnrStatus = asyncHandler(async(req,res)=>{
+    const user = await User.findById(req.user.id);
+
+    const isConfirmed = await Booking.findOne({userId:user._id});
+
+    if((isConfirmed.status)!=="confirmed"){
+        return res.json(new ApiError(404,"No confirmed bookings"));
+    }
+
+    return res.json(new ApiResponse(200,isConfirmed));
+});
+
+export {registerUser,loginUser,logout,updateProfile,getUserDetails,updatePassword,forgotPassword,resetPassword,addPassenger,editPassenger,pnrStatus};
