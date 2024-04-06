@@ -1,9 +1,9 @@
 import { Component } from "react";
 import axios from "axios";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { DataTable } from "./DataTable";
-import { StationColumns } from "./columns/Station-columns";
-import { Station } from "./columns/Station-columns";
+import { StationColumns } from "../columns/Station-columns";
+import { Station } from "../columns/Station-columns";
 
 class Stations extends Component {
 constructor(props: any) {

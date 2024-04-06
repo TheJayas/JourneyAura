@@ -1,7 +1,7 @@
 import { Component } from "react";
 import axios from "axios";
 import { Button } from "./ui/button";
-import { DataTable } from "./DataTable";
+import { DataTable } from "./adminPanel/DataTable";
 import { RoutesColumns } from "./columns/Routes-columns";
 import { RoutesT } from "./columns/Routes-columns";
 
