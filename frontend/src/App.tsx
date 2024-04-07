@@ -42,7 +42,7 @@ function App() {
       </BrowserRouter>
       <Bubble
         typebot="faq-e9ajhwr"
-        theme={{ button: { backgroundColor: "#0042DA" } }}
+        theme={{ button: { backgroundColor: "#0042DA"} }}
        />
       </>
   )

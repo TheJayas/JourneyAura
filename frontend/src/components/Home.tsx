@@ -122,7 +122,7 @@ const Home = () => {
       <div>
         <HeroParallax products={products} />
       </div>
-      <h1 className="text-white text-6xl font-mono pb-4 items-center justify-center flex">Indian Railways</h1>
+      <h1 className="text-white text-6xl font-mono pb-4 items-center justify-center flex">HOLIDAYS</h1>
       <div className='flex flex-col'>
         <div className='flex flex-row'>
         <div className="border border-white/[0.2] flex flex-col items-start max-w-sm mx-auto p-4 relative h-[35rem] mt-10">
