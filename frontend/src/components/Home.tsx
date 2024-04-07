@@ -2,9 +2,25 @@ import withSplashScreen from '../withSplashScreen'
 import { motion, useScroll, useTransform } from "framer-motion";
 import { BackgroundBeams } from './ui/background-beams';
 import img1 from '../assets/bg_1.jpg'
+import img3 from '../assets/img3.jpg'
+import img4 from '../assets/img4.jpg'
+import img5 from '../assets/img5.jpg'
+import img6 from '../assets/img6.jpg'
+import img7 from '../assets/img7.jpg'
+import img8 from '../assets/img8.jpg'
+import img9 from '../assets/img9.jpg'
+import img10 from '../assets/img10.jpg'
+import img11 from '../assets/img11.jpg'
+import bimg1 from '../assets/blogImg1.jpg'
+import bimg2 from '../assets/blogImg2.jpg'
+import bimg3 from '../assets/blogImg3.jpg'
+import bimg4 from '../assets/blogImg4.jpg'
+import bimg5 from '../assets/blogImg5.jpg'
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { HeroParallax } from './hero-parallax';
+import { EvervaultCard, Icon } from './ui/evervault-card';
+import { MoveRight } from 'lucide-react';
 
 // import { Button } from './ui/moving-border';
 const Home = () => {
@@ -64,7 +80,7 @@ const Home = () => {
     return () => document.removeEventListener("scroll", divAnimate);
   },[])
   return (
-    <div className='overflow-x-hidden overflow-y-hidden w-full h-[500vh] flex flex-col'>
+    <div className='overflow-x-hidden overflow-y-hidden w-full h-[900vh] flex flex-col'>
       <motion.div className='flex flex-row overflow-x-hidden overflow-y-hidden' id='inner'>
       <motion.div className="flex flex-col gap-7 items-center justify-center px-4" id='textEl'
             initial={{
@@ -105,7 +121,98 @@ const Home = () => {
       <div>
         <HeroParallax products={products} />
       </div>
-      <BackgroundBeams className={"h-[530vh]"}/>
+      <h1 className="text-white text-6xl font-mono pb-4 items-center justify-center flex">Indian Railways</h1>
+      <div className='flex flex-col'>
+        <div className='flex flex-row'>
+        <div className="border border-white/[0.2] flex flex-col items-start max-w-sm mx-auto p-4 relative h-[25rem] mt-10">
+          <Icon className="absolute h-6 w-6 -top-3 -left-3 text-white" />
+          <Icon className="absolute h-6 w-6 -bottom-3 -left-3 text-white" />
+          <Icon className="absolute h-6 w-6 -top-3 -right-3 text-white" />
+          <Icon className="absolute h-6 w-6 -bottom-3 -right-3 text-white" />
+          <EvervaultCard image={bimg1} />
+    
+          <h2 className="text-white mt-4 text-sm font-light">
+            Hover over this card to reveal an awesome effect. Running out of copy
+            here.
+          </h2>
+          <a className='flex felx-row align-middle justify-center items-center' href='http://www.the-maharajas.com/'>
+            <p className="text-sm border font-light border-white/[0.2] rounded-full mt-4 text-white px-2 py-0.5">
+              Read More
+            </p>
+            <MoveRight className="h-6 w-6 text-white ml-2 mt-4"/>
+          </a>
+          </div>
+          <div className="border border-white/[0.2] flex flex-col items-start max-w-sm mx-auto p-4 relative h-[35rem] mt-10">
+          <Icon className="absolute h-6 w-6 -top-3 -left-3 text-white" />
+          <Icon className="absolute h-6 w-6 -bottom-3 -left-3 text-white" />
+          <Icon className="absolute h-6 w-6 -top-3 -right-3 text-white" />
+          <Icon className="absolute h-6 w-6 -bottom-3 -right-3 text-white" />
+          <EvervaultCard image={bimg2} />
+          <h2 className="text-white mt-4 text-xl font-light">
+          Maharajas' Express
+          </h2>
+          <h2 className="text-white mt-4 text-sm font-light">
+            Redefining Royalty, Luxury and Comfort, Maharajas' express takes you on a sojourn to the era of bygone stately splendour of princely states. Sylvan furnishings, elegant ambience and modern amenities are amalgamated for an “Experience Unsurpassed”. It has been a winner of “World’s Leading Luxury train” by World Travel Awards consecutively for last six years.
+          </h2>
+          <a className='flex felx-row align-middle justify-center items-center' href='http://www.the-maharajas.com/'>
+            <p className="text-sm border font-light border-white/[0.2] rounded-full mt-4 text-white px-2 py-0.5">
+              Read More
+            </p>
+            <MoveRight className="h-6 w-6 text-white ml-2 mt-4"/>
+          </a>
+          </div>  
+        </div> 
+        <div className='flex flex-row'>
+        <div className="border border-white/[0.2] flex flex-col items-start max-w-sm mx-auto p-4 relative h-[25rem] mt-10">
+          <Icon className="absolute h-6 w-6 -top-3 -left-3 text-white" />
+          <Icon className="absolute h-6 w-6 -bottom-3 -left-3 text-white" />
+          <Icon className="absolute h-6 w-6 -top-3 -right-3 text-white" />
+          <Icon className="absolute h-6 w-6 -bottom-3 -right-3 text-white" />
+          <EvervaultCard image={bimg4} />
+    
+          <h2 className="text-white mt-4 text-sm font-light">
+            Hover over this card to reveal an awesome effect. Running out of copy
+            here.
+          </h2>
+          <p className="text-sm border font-light border-white/[0.2] rounded-full mt-4 text-white px-2 py-0.5">
+            Watch me hover
+          </p>
+          </div>
+          <div className="border border-white/[0.2] flex flex-col items-start max-w-sm mx-auto p-4 relative h-[25rem] mt-10">
+          <Icon className="absolute h-6 w-6 -top-3 -left-3 text-white" />
+          <Icon className="absolute h-6 w-6 -bottom-3 -left-3 text-white" />
+          <Icon className="absolute h-6 w-6 -top-3 -right-3 text-white" />
+          <Icon className="absolute h-6 w-6 -bottom-3 -right-3 text-white" />
+          <EvervaultCard image={bimg5} />
+    
+          <h2 className="text-white mt-4 text-sm font-light">
+            Hover over this card to reveal an awesome effect. Running out of copy
+            here.
+          </h2>
+          <p className="text-sm border font-light border-white/[0.2] rounded-full mt-4 text-white px-2 py-0.5">
+            Watch me hover
+          </p>
+          </div>
+        </div>
+        <div className='flex flex-row'>
+        <div className="border border-white/[0.2] flex flex-col items-start max-w-sm mx-auto p-4 relative h-[25rem] mt-10">
+          <Icon className="absolute h-6 w-6 -top-3 -left-3 text-white" />
+          <Icon className="absolute h-6 w-6 -bottom-3 -left-3 text-white" />
+          <Icon className="absolute h-6 w-6 -top-3 -right-3 text-white" />
+          <Icon className="absolute h-6 w-6 -bottom-3 -right-3 text-white" />
+          <EvervaultCard image={bimg3} />
+    
+          <h2 className="text-white mt-4 text-sm font-light">
+            Hover over this card to reveal an awesome effect. Running out of copy
+            here.
+          </h2>
+          <p className="text-sm border font-light border-white/[0.2] rounded-full mt-4 text-white px-2 py-0.5">
+            Watch me hover
+          </p>
+          </div>  
+        </div>
+      </div>
+      <BackgroundBeams className={"h-[900vh]"}/>
 
     </div>
   )
@@ -114,96 +221,78 @@ export default Home;
 // export default withSplashScreen(Home);
 export const products = [
   {
-    title: "Moonbeam",
-    link: "https://gomoonbeam.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/moonbeam.png",
+    title: "Easy Ticket Booking",
+    link: "/booking",
+    thumbnail: img1
   },
   {
-    title: "Cursor",
-    link: "https://cursor.so",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/cursor.png",
+    title: "Secure Payment Processing",
+    link: "/booking",
+    thumbnail: img11
   },
   {
-    title: "Rogue",
-    link: "https://userogue.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/rogue.png",
-  },
- 
-  {
-    title: "Editorially",
-    link: "https://editorially.org",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/editorially.png",
+    title: "Real-time Train Tracking",
+    link: "/booking",
+    thumbnail: img3
   },
   {
-    title: "Editrix AI",
-    link: "https://editrix.ai",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/editrix.png",
+    title: "User-Friendly Interface",
+    link: "/booking",
+    thumbnail: img4
   },
   {
-    title: "Pixel Perfect",
-    link: "https://app.pixelperfect.quest",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/pixelperfect.png",
-  },
- 
-  {
-    title: "Algochurn",
-    link: "https://algochurn.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/algochurn.png",
+    title: "Customized Booking Options",
+    link: "/booking",
+    thumbnail: img5
   },
   {
-    title: "Aceternity UI",
-    link: "https://ui.aceternity.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/aceternityui.png",
+    title: "24/7 Customer Support",
+    link: "/booking",
+    thumbnail: img6
   },
   {
-    title: "Tailwind Master Kit",
-    link: "https://tailwindmasterkit.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/tailwindmasterkit.png",
+    title: "Personalized Travel Recommendations",
+    link: "/booking",
+    thumbnail: img7
   },
   {
-    title: "SmartBridge",
-    link: "https://smartbridgetech.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/smartbridge.png",
+    title: "Seamless Integration with Travel Apps",
+    link: "/booking",
+    thumbnail: img8
   },
   {
-    title: "Renderwork Studio",
-    link: "https://renderwork.studio",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/renderwork.png",
-  },
- 
-  {
-    title: "Creme Digital",
-    link: "https://cremedigital.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/cremedigital.png",
+    title: "Efficient Seat Selection",
+    link: "/booking",
+    thumbnail: img9
   },
   {
-    title: "Golden Bells Academy",
-    link: "https://goldenbellsacademy.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/goldenbellsacademy.png",
+    title: "Exclusive Discounts and Offers",
+    link: "/booking",
+    thumbnail: img10
   },
   {
-    title: "Invoker Labs",
-    link: "https://invoker.lol",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/invoker.png",
+    title: "Easy Ticket Booking",
+    link: "/booking",
+    thumbnail: img11
   },
   {
-    title: "E Free Invoice",
-    link: "https://efreeinvoice.com",
-    thumbnail:
-      "https://aceternity.com/images/products/thumbnails/new/efreeinvoice.png",
+    title: "Secure Payment Processing",
+    link: "/booking",
+    thumbnail: img1
+  },
+  {
+    title: "Real-time Train Tracking",
+    link: "/booking",
+    thumbnail: img3
+  },
+  {
+    title: "User-Friendly Interface",
+    link: "/booking",
+    thumbnail: img4
+  },
+  {
+    title: "Customized Booking Options",
+    link: "/booking",
+    thumbnail: img5
   },
 ];

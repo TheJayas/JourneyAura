@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "@typebot.io/js": "^0.2.64",
-    "@typebot.io/react": "^0.2.64"
-  }
-}
