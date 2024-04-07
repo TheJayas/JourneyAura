@@ -32,13 +32,13 @@ export const EvervaultCard = ({
   return (
     <div
       className={cn(
-        "p-0.5  bg-transparent aspect-square  flex items-center justify-center w-full h-full relative border-2 border-zinc-600 rounded-3xl",
+        "p-0.5  bg-transparent aspect-square  flex items-center justify-center w-full h-full relative ",
         className
       )}
     >
       <div
         onMouseMove={onMouseMove}
-        className="group/card rounded-3xl w-full relative overflow-hidden bg-transparent flex items-center justify-center h-full"
+        className="group/card border-2 border-zinc-600 rounded-3xl w-full relative overflow-hidden bg-transparent flex items-center justify-center h-full"
       >
         <CardPattern
           mouseX={mouseX}
