@@ -20,7 +20,7 @@ import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { HeroParallax } from './hero-parallax';
 import { EvervaultCard, Icon } from './ui/evervault-card';
-import { HomeIcon, MailIcon, MoveRight, Phone, PhoneCall, PrinterIcon, TicketCheck} from 'lucide-react';
+import { HomeIcon, MailIcon, MoveRight, Phone, TicketCheck} from 'lucide-react';
 import { SocialIcon } from 'react-social-icons'
 
 // import { Button } from './ui/moving-border';
