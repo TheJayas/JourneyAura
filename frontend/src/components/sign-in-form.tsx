@@ -2,14 +2,44 @@ import React from "react";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { cn } from "@/utils/cn";
+import { Toaster } from "./ui/sonner";
+import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
+import axios from "axios";
 
 export function SigninForm() {
   const navigate=useNavigate();
+  const [username, setUsername] = React.useState<string>("");
+  const [email, setEmail] = React.useState<string>("");
+  const [password, setPassword] = React.useState<string>("");
+  const [confirmPassword, setConfirmPassword] = React.useState<string>("");
+
   const [captcha, setCaptcha] = React.useState<string>("");
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit =async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const toastId = toast.loading(
+      "Verifying User, Please Wait...",
+    );
+    if(password!==confirmPassword){toast.error("Passwords do not match", { id: toastId });}
+    const data={'name':username,'email':email,'password':password};
+    try {
+      await axios.post("http://localhost:3000/api/v1/user/login", data)
+      .then((res) => {
+        console.log(res);
+        if(res.data.success){
+          toast.success("Login Successful", { id: toastId });
+          setTimeout(() => {
+            navigate("/");
+          }, 2);
+        }else{
+          toast.error("No User exist with this email", { id: toastId });
+        }
+      })
+      .catch((err) => {console.log(err); toast.error("Error Registering", { id: toastId });});
+    } catch (err) {
+      toast.error("Error Registering", { id: toastId });
+    }
     console.log("Form submitted");
   };
   return (
@@ -27,15 +57,36 @@ export function SigninForm() {
       <form className="my-4" onSubmit={handleSubmit}>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="name" className="text-white">Username</Label>
-          <Input id="name" placeholder="username" type="text" className="rounded-xl"/>
+          <Input 
+          id="name" 
+          placeholder="username" 
+          type="text" 
+          className="rounded-xl"
+          required
+          onChange={(e) => setUsername(e.target.value)}
+          />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email" className="text-white">Email</Label>
-          <Input id="email" placeholder="email@gmail.com" type="email" className="rounded-xl" />
+          <Input 
+          id="email" 
+          placeholder="email@gmail.com" 
+          type="email" 
+          className="rounded-xl"
+          required
+          onChange={(e) => setEmail(e.target.value)}
+          />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password" className="text-white">Password</Label>
-          <Input id="password" placeholder="••••••••" type="password" className="rounded-xl"/>
+          <Input 
+          id="password" 
+          placeholder="••••••••" 
+          type="password" 
+          className="rounded-xl"
+          required
+          onChange={(e) => setPassword(e.target.value)}
+          />
         </LabelInputContainer>
         <LabelInputContainer className="mb-8">
           <Label htmlFor="confirmpassword" className="text-white">Confirm password</Label>
@@ -44,12 +95,14 @@ export function SigninForm() {
             placeholder="••••••••"
             type="password"
             className="rounded-xl"
+            required
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </LabelInputContainer>
         <div className="pb-4 relative"><ReCAPTCHA sitekey="6Ldb27UpAAAAAAHBHAPEVKlq1FM3zlQdo1i6iD-O" onChange={(val)=>{setCaptcha(val || "")}}></ReCAPTCHA></div>
 
         <button
-          className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset] rounded-xl"
+          className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset] rounded-xl disabled:opacity-50"
           type="submit"
           disabled={captcha===""}
         >
@@ -68,8 +121,8 @@ export function SigninForm() {
           </button>
         </div>
       </form>
-      
     </div>
+    <Toaster className="bg-white" />
     </div>
     </div>
   );

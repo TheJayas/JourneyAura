@@ -5,6 +5,7 @@ import { cn } from "@/utils/cn";
 import { useNavigate } from "react-router-dom";
 import { Toaster } from "./ui/sonner";
 import { toast } from "sonner";
+import axios from "axios";
 
 export function SignupForm() {
   const navigate=useNavigate();
@@ -15,14 +16,27 @@ export function SignupForm() {
   const [password, setPassword] = React.useState<string>("");
   const [confirmPassword, setConfirmPassword] = React.useState<string>("");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const toastId = toast.loading(
       "Registering, Please Wait...",
     );
     if(password!==confirmPassword){toast.error("Passwords do not match", { id: toastId });}
+    const data={'name':username,'email':email,'phoneNumber':mobile,'address':address,'password':password};
     try {
-      
+      await axios.post("http://localhost:3000/api/v1/user/register", data)
+      .then((res) => {
+        console.log(res);
+        if(res.data.success){
+          toast.success("Registered Successfully", { id: toastId });
+          setTimeout(() => {
+            navigate("/sign-in");
+          }, 2);
+        }else{
+          toast.error("User already exist with this email", { id: toastId });
+        }
+      })
+      .catch((err) => {console.log(err); toast.error("Error Registering", { id: toastId });});
     } catch (err) {
       toast.error("Error Registering", { id: toastId });
     }
