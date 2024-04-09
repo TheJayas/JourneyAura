@@ -12,7 +12,9 @@ import { Passenger } from "../models/passengerModel.js";
 const registerUser = asyncHandler(async(req,res)=>{
     
     const {name,email,password,phoneNumber,address} = req.body;
-    
+    const uss= await User.findOne({email:email});
+    if(uss){return res.json(new ApiError(400,{'error':"User already exist with this email"}));}
+    // console.log(uss);
     const pnr = crypto.randomBytes(4).readUint32LE(0);
 
     const user = await User.create({
@@ -29,19 +31,19 @@ const registerUser = asyncHandler(async(req,res)=>{
 
 const loginUser = asyncHandler(async(req,res)=>{
     const {email,password} = req.body;
-    
     if(!email || !password){
         return new ApiError(400,"Please Enter Email & Password");
     }
-
+    
     const user = await User.findOne({
         email
     }).select("+password");
-
+    
+    console.log(email,password);
     if(!user){
         return res.json(new ApiError(401,"Invalid email or password"));
     }
-
+    
     const isPasswordMatched = user.comparePassword(password);
 
     if (!isPasswordMatched) {
