@@ -4,8 +4,9 @@ import { ApiError } from "../utils/ApiError.js";
 import jwt from 'jsonwebtoken';
 
 const isAuthenticatedUser = asyncHandler(async(req,res,next)=>{
-    const token = req.header['token'];
-
+    const token = req.headers.token;
+    // console.log(req.headers.token);
+    // console.log(token);
     if(!token){
         return next(new ApiError(401));
     }

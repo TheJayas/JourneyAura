@@ -121,6 +121,7 @@ export function SignupForm() {
                 placeholder="••••••••"
                 type="password"
                 className="rounded-xl"
+                minLength={8}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />

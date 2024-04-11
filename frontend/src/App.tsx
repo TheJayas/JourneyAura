@@ -15,6 +15,7 @@ import EditStationForm from './components/forms/EditStationForm'
 import AddStationForm from './components/forms/AddStationForm'
 import EditRouteForm from './components/forms/EditRouteForm'
 import AddRouteForm from './components/forms/AddRouteForm'
+import Booking from './components/MainFeature/Booking';
 // import { Toaster } from './components/ui/sonner'
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path="book-ticket"  element={<Booking/>} />
         </Route>
         <Route path="sign-up" element={<SignupForm />} />
         <Route path="sign-in" element={<SigninForm />} />

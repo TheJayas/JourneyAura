@@ -25,9 +25,10 @@ import { SocialIcon } from 'react-social-icons'
 
 // import { Button } from './ui/moving-border';
 const Home = () => {
+
   const navigate=useNavigate();
   const onclickHandler = () => {
-    console.log("clicked");
+    // console.log("clicked");
     navigate('/booking');
   }
 
@@ -139,7 +140,7 @@ const Home = () => {
             Redefining Royalty, Luxury and Comfort, Maharajas' express takes you on a sojourn to the era of bygone stately splendour of princely states. Sylvan furnishings, elegant ambience and modern amenities are amalgamated for an “Experience Unsurpassed”. It has been a winner of “World’s Leading Luxury train” by World Travel Awards consecutively for last six years.
           </h2>
           <a className='flex felx-row align-middle justify-center items-center' href='/booking'>
-            <p className="text-sm border font-light border-white/[0.2] rounded-full mt-4 text-white px-2 py-0.5">
+            <p className="text-sm border font-light border-white/[0.2] rounded-full mt-4 text-white px-2 py-0.5 hover:bg-blue-600">
               Book Now
             </p>
             <MoveRight className="h-6 w-6 text-white ml-2 mt-4"/>
@@ -159,7 +160,7 @@ const Home = () => {
             Best deals in International Holiday packages, handpicked by IRCTC, for Thailand, Dubai, Sri Lanka, Hong Kong, China, Macau, Bhutan, Nepal, U.K., Europe, USA, Australia etc. The packages are inclusive of sightseeing, meals, visa charges and overseas medical insurance to give you a hassle-free and memorable experience.
           </h2>
           <a className='flex felx-row align-middle justify-center items-center' href='/booking'>
-            <p className="text-sm border font-light border-white/[0.2] rounded-full mt-4 text-white px-2 py-0.5">
+            <p className="text-sm border font-light border-white/[0.2] rounded-full mt-4 text-white px-2 py-0.5 hover:bg-blue-600">
               Book Now
             </p>
             <MoveRight className="h-6 w-6 text-white ml-2 mt-4"/>
@@ -182,7 +183,7 @@ const Home = () => {
           Be it the spiritual devotee seeking blessings of Tirupati, Shirdi or Mata Vaishno Devi or the leisure traveller wanting to relish the Blue mountains of North East, Sand-dunes of Rajasthan, Hamlets of Ladakh, Wonders of Himalayas, Serene lakes or Picturesque Islands, IRCTC has it all. Discover India through IRCTC!
           </h2>
           <a className='flex felx-row align-middle justify-center items-center' href='/booking'>
-            <p className="text-sm border font-light border-white/[0.2] rounded-full mt-4 text-white px-2 py-0.5">
+            <p className="text-sm border font-light border-white/[0.2] rounded-full mt-4 text-white px-2 py-0.5 hover:bg-blue-600">
               Book Now
             </p>
             <MoveRight className="h-6 w-6 text-white ml-2 mt-4"/>
@@ -204,7 +205,7 @@ const Home = () => {
           IRCTC operates Bharat Gaurav Tourist Train having AC III-Tier accommodation on train specially designed to promote domestic tourism in India. This train runs on various theme based circuits covering pilgrimage and heritage destinations in its itinerary on a 5 days to 20 days trip and showcase India’s rich cultural heritage
           </h2>
           <a className='flex felx-row align-middle justify-center items-center' href='/booking'>
-            <p className="text-sm border font-light border-white/[0.2] rounded-full mt-4 text-white px-2 py-0.5">
+            <p className="text-sm border font-light border-white/[0.2] rounded-full mt-4 text-white px-2 py-0.5 hover:bg-blue-600">
               Book Now
             </p>
             <MoveRight className="h-6 w-6 text-white ml-2 mt-4"/>
@@ -227,7 +228,7 @@ const Home = () => {
           IRCTC offers Exclusive Rail tour packages with confirmed train tickets, sight-seeing and meals for enchanting Nilgiri Mountains, Darjeeling, Kullu Manali, Kashmir, Gangtok or divine tours of Mata Vaishno Devi, Rameswaram, Madurai, Shirdi, Tirupati etc. Holiday packages/ Land packages to these destinations are also available.
           </h2>
           <a className='flex felx-row align-middle justify-center items-center' href='/booking'>
-          <p className="text-sm border font-light border-white/[0.2] rounded-full mt-4 text-white px-2 py-0.5">
+          <p className="text-sm border font-light border-white/[0.2] rounded-full mt-4 text-white px-2 py-0.5 hover:bg-blue-600">
             Book Now
           </p>
           <MoveRight className="h-6 w-6 text-white ml-2 mt-4"/>
@@ -302,8 +303,8 @@ const Home = () => {
     </div>
   )
 }
-
-export default withSplashScreen(Home);
+export default Home;
+// export default withSplashScreen(Home);
 export const products = [
   {
     title: "Easy Ticket Booking",

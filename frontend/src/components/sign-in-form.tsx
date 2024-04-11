@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import React from "react";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
@@ -9,6 +10,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import axios from "axios";
 
 export function SigninForm() {
+
   const navigate=useNavigate();
   const [username, setUsername] = React.useState<string>("");
   const [email, setEmail] = React.useState<string>("");
@@ -29,9 +31,11 @@ export function SigninForm() {
         console.log(res);
         if(res.data.success){
           toast.success("Login Successful", { id: toastId });
+          const token = res.data.token;
+          Cookies.set('token', token, { expires: 7, secure: true });
           setTimeout(() => {
             navigate("/");
-          }, 2);
+          }, 1000);
         }else{
           toast.error("No User exist with this email", { id: toastId });
         }
