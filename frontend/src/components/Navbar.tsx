@@ -4,7 +4,7 @@ import  { useEffect, useState } from "react";
 import { HoveredLink, Menu, MenuItem} from "./ui/navbar-menu";
 import Cookies from 'js-cookie';
 import axios from "axios";
-import { FileSearch, LocateFixedIcon, Lock, LogIn, LogOutIcon, Search, TicketIcon, Train, UserIcon, UserPlus, UserSquare2 } from "lucide-react";
+import { LocateFixedIcon, Lock, LogIn, LogOutIcon, TicketIcon, Train, UserIcon, UserPlus, UserSquare2 } from "lucide-react";
 
 const Navbar = () => {
   const token=Cookies.get('token');

@@ -11,7 +11,7 @@ import { useRef } from "react";
 import { cn } from "@/utils/cn";
 
 export function Button({
-  borderRadius = "1.75rem",
+  borderRadius = "1.25rem",
   children,
   as: Component = "button",
   containerClassName,
@@ -32,7 +32,7 @@ export function Button({
   return (
     <Component
       className={cn(
-        "bg-transparent relative text-xl  h-16 w-40 p-[1px] overflow-hidden ",
+        "bg-transparent relative text-xl h-12 w-40 p-[1px] overflow-hidden ",
         containerClassName
       )}
       style={{

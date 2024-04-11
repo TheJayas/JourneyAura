@@ -29,7 +29,7 @@ const Home = () => {
   const navigate=useNavigate();
   const onclickHandler = () => {
     // console.log("clicked");
-    navigate('/booking');
+    navigate('//book-ticket');
   }
 
   // const textRef = useRef<HTMLElement | null>(null);
@@ -251,7 +251,7 @@ const Home = () => {
           <div  className='mx-auto mb-md-0 mb-4 text-zinc-200 pt-2'>
               <h6 className='font-bold mb-3 uppercase'>Useful links</h6>
               <p>
-                <a href='/booking' className='font-mono text-zinc-200'>
+                <a href='/book-ticket' className='font-mono text-zinc-200'>
                   Book Tickets
                 </a>
               </p>
@@ -303,8 +303,7 @@ const Home = () => {
     </div>
   )
 }
-export default Home;
-// export default withSplashScreen(Home);
+export default withSplashScreen(Home);
 export const products = [
   {
     title: "Easy Ticket Booking",
