@@ -35,7 +35,7 @@ const searchTrain = asyncHandler(async (req, res) => {
           stationId: from,
           date,
         });
-        const availableSeats = 70 - seats.length > 0 ? 70 - seats.length : 0;
+        const availableSeats = train.seatCount - seats.length > 0 ? train.seatCount - seats.length : 0;
         return {
           trainNumber: train.trainNumber,
           trainName: train.trainName,
