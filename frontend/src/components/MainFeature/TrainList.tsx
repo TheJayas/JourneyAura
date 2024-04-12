@@ -1,4 +1,4 @@
-import {  FaAngleDown, FaAngleUp, FaLocationArrow } from 'react-icons/fa';
+import {  FaAngleDown, FaAngleUp, FaLocationArrow, FaTimes } from 'react-icons/fa';
 import { VscLocation } from "react-icons/vsc";
 import { format } from 'date-fns';
 import { useEffect, useState } from 'react'
@@ -6,7 +6,7 @@ import { BackgroundBeams } from '../ui/background-beams'
 import { Label } from "../ui/label";
 import { cn } from "@/utils/cn";
 import logo from "../../assets/icon.svg"
-import { ArrowLeftRightIcon, CalendarIcon,  LogOut, Menu, User2Icon } from 'lucide-react';
+import { ArrowLeftRightIcon, CalendarIcon,  Clock,  EllipsisVerticalIcon,  GripVerticalIcon,  LogOut, Menu, SeparatorVertical, Timer, User2Icon } from 'lucide-react';
 import { Button } from '../ui/moving-border';
 import { Button as Button1}  from '../ui/button';
 import { motion } from 'framer-motion';
@@ -318,7 +318,7 @@ const TrainList = () => {
           </div>
         </div>
         <div className='flex flex-row w-full h-full'>
-            <div className='w-1/5 h-[100rem] bg-emerald-100 justify-start l-0 flex flex-col'>
+            <div className='w-1/4 h-[100rem] bg-emerald-100 justify-start l-0 flex flex-col'>
                 <div className='flex flex-row justify-between px-4 pt-3'>
                     <h1 className='font-mono pt-1'>Refine Results</h1>
                     <Button1 className='rounded m-0 bg-orange-200 hover:bg-orange-100  text-md top-0 h-7 p-3'>Reset</Button1>
@@ -369,6 +369,71 @@ const TrainList = () => {
                     transition={{ duration: 0.5 }}
                     ></motion.div>
                 {/*<div className='border-t border-zinc-800 mt-3'></div>*/}
+            </div>
+            <div className='w-full h-40 bg-white m-2 flex flex-col'>
+                <div className='flex flex-row bg-teal-300 justify-between'>
+                    <div className='flex flex-row px-2'>
+                        <h1 className='p-1 font-serif text-lg font-black'>Train Name</h1>
+                        <h1 className='p-1 font-serif text-lg font-black'>[Train Number]</h1>
+                    </div>
+                    <div className='flex flex-row px-2 my-auto w-60'>
+                        <h1>Runs On days</h1>
+                    </div>
+                    <div className='flex flex-row px-2 my-auto'>
+                        <button className=' text-blue-600 hover:text-blue-800 '><h1 className='font-bold'>Train Schedule</h1></button>
+                    </div>
+                </div>
+                <div className='flex flex-row bg-emerald-50 justify-between items-center h-64'>
+                    <div className='flex flex-row px-2'>
+                        <Clock className='h-5 w-5 mt-2'/>
+                        <h1 className='p-1 font-serif text-lg font-black'>Ar:Tm</h1>
+                        <EllipsisVerticalIcon className='h-6 w-6 mt-2'/>
+                        <VscLocation className='h-5 w-5 mt-2'/>
+                        <h1 className='p-1 font-serif text-lg font-black'>Ar:Loc</h1>
+                        <EllipsisVerticalIcon className='h-6 w-6 mt-2'/>
+                        <CalendarIcon className='h-5 w-5 mt-2'/>
+                        <h1 className='p-1 font-serif text-lg font-black'>Ar:Date</h1>
+                    </div>
+                    <div className='flex flex-row px-2 my-auto '>
+                        <GripVerticalIcon className='h-6 w-6 mt-2'/>
+                        <h1 className='p-1 font-serif text-lg font-black'>Jr:Tm</h1>
+                        <GripVerticalIcon className='h-6 w-6 mt-2'/>
+                    </div>
+                    <div className='flex flex-row px-2 my-auto'>
+                    <Clock className='h-5 w-5 mt-2'/>
+                        <h1 className='p-1 font-serif text-lg font-black'>Ar:Tm</h1>
+                        <EllipsisVerticalIcon className='h-6 w-6 mt-2'/>
+                        <VscLocation className='h-5 w-5 mt-2'/>
+                        <h1 className='p-1 font-serif text-lg font-black'>Ar:Loc</h1>
+                        <EllipsisVerticalIcon className='h-6 w-6 mt-2'/>
+                        <CalendarIcon className='h-5 w-5 mt-2'/>
+                        <h1 className='p-1 font-serif text-lg font-black'>Ar:Date</h1>
+                    </div>
+                </div>
+                <div className='flex flex-row bg-gray-200 justify-between'>
+                    <div className='flex flex-row px-2'>
+                        <h1 className='p-1 font-serif text-lg font-black'>Train Name</h1>
+                        <h1 className='p-1 font-serif text-lg font-black'>[Train Number]</h1>
+                    </div>
+                    <div className='flex flex-row px-2 my-auto w-60'>
+                        <h1>Runs On days</h1>
+                    </div>
+                    <div className='flex flex-row px-2 my-auto'>
+                        <button className=' text-blue-600 hover:text-blue-800 '><h1 className='font-bold'>Train Schedule</h1></button>
+                    </div>
+                </div>
+                <div className='flex flex-row bg-gray-200 justify-between'>
+                    <div className='flex flex-row px-2'>
+                        <h1 className='p-1 font-serif text-lg font-black'>Train Name</h1>
+                        <h1 className='p-1 font-serif text-lg font-black'>[Train Number]</h1>
+                    </div>
+                    <div className='flex flex-row px-2 my-auto w-60'>
+                        <h1>Runs On days</h1>
+                    </div>
+                    <div className='flex flex-row px-2 my-auto'>
+                        <button className=' text-blue-600 hover:text-blue-800 '><h1 className='font-bold'>Train Schedule</h1></button>
+                    </div>
+                </div>
             </div>
         </div>
     </motion.div>
