@@ -410,29 +410,33 @@ const TrainList = () => {
                         <h1 className='p-1 font-serif text-lg font-black'>Ar:Date</h1>
                     </div>
                 </div>
-                <div className='flex flex-row bg-gray-200 justify-between'>
-                    <div className='flex flex-row px-2'>
-                        <h1 className='p-1 font-serif text-lg font-black'>Train Name</h1>
-                        <h1 className='p-1 font-serif text-lg font-black'>[Train Number]</h1>
+                <div className='flex flex-row bg-white justify-start'>
+                    <div className='flex flex-col px-2 rounded border-2 border-zinc-800 m-4 bg-zinc-200'>
+                        <h1 className='px-1 font-mono text-lg font-black'>Sleeper (SL)</h1>
+                        <h1>Av.Seat</h1>
                     </div>
-                    <div className='flex flex-row px-2 my-auto w-60'>
-                        <h1>Runs On days</h1>
+                    <div className='flex flex-col px-2 rounded border-2 border-zinc-800 m-4 bg-zinc-200'>
+                        <h1 className='px-1 font-mono text-lg font-black'>Sleeper (SL)</h1>
+                        <h1>Av.Seat</h1>
                     </div>
-                    <div className='flex flex-row px-2 my-auto'>
-                        <button className=' text-blue-600 hover:text-blue-800 '><h1 className='font-bold'>Train Schedule</h1></button>
+                    <div className='flex flex-col px-2 rounded border-2 border-zinc-800 m-4 bg-zinc-200'>
+                        <h1 className='px-1 font-mono text-lg font-black'>Sleeper (SL)</h1>
+                        <h1>Av.Seat</h1>
+                    </div>
+                    <div className='flex flex-col px-2 rounded border-2 border-zinc-800 m-4 bg-zinc-200'>
+                        <h1 className='px-1 font-mono text-lg font-black'>Sleeper (SL)</h1>
+                        <h1>Av.Seat</h1>
+                    </div>
+                    <div className='flex flex-col px-2 rounded border-2 border-zinc-800 m-4 bg-zinc-200'>
+                        <h1 className='px-1 font-mono text-lg font-black'>Sleeper (SL)</h1>
+                        <h1>Av.Seat</h1>
                     </div>
                 </div>
-                <div className='flex flex-row bg-gray-200 justify-between'>
-                    <div className='flex flex-row px-2'>
-                        <h1 className='p-1 font-serif text-lg font-black'>Train Name</h1>
-                        <h1 className='p-1 font-serif text-lg font-black'>[Train Number]</h1>
+                <div className='flex flex-row bg-gray-200 justify-start'>
+                    <div className='flex flex-row p-2'>
+                        <Button1 className='bg-orange-600 rounded-xl hover:bg-orange-500 w-40 font-serif text-lg'>Book Now</Button1>
                     </div>
-                    <div className='flex flex-row px-2 my-auto w-60'>
-                        <h1>Runs On days</h1>
-                    </div>
-                    <div className='flex flex-row px-2 my-auto'>
-                        <button className=' text-blue-600 hover:text-blue-800 '><h1 className='font-bold'>Train Schedule</h1></button>
-                    </div>
+                    
                 </div>
             </div>
         </div>
