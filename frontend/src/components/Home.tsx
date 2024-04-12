@@ -29,7 +29,7 @@ const Home = () => {
   const navigate=useNavigate();
   const onclickHandler = () => {
     // console.log("clicked");
-    navigate('//book-ticket');
+    navigate('/book-ticket');
   }
 
   // const textRef = useRef<HTMLElement | null>(null);
@@ -139,7 +139,7 @@ const Home = () => {
           <h2 className="text-white mt-4 text-sm font-light">
             Redefining Royalty, Luxury and Comfort, Maharajas' express takes you on a sojourn to the era of bygone stately splendour of princely states. Sylvan furnishings, elegant ambience and modern amenities are amalgamated for an “Experience Unsurpassed”. It has been a winner of “World’s Leading Luxury train” by World Travel Awards consecutively for last six years.
           </h2>
-          <a className='flex felx-row align-middle justify-center items-center' href='/booking'>
+          <a className='flex felx-row align-middle justify-center items-center' href='/book-ticket'>
             <p className="text-sm border font-light border-white/[0.2] rounded-full mt-4 text-white px-2 py-0.5 hover:bg-blue-600">
               Book Now
             </p>
@@ -159,7 +159,7 @@ const Home = () => {
           <h2 className="text-white mt-4 text-sm font-light">
             Best deals in International Holiday packages, handpicked by IRCTC, for Thailand, Dubai, Sri Lanka, Hong Kong, China, Macau, Bhutan, Nepal, U.K., Europe, USA, Australia etc. The packages are inclusive of sightseeing, meals, visa charges and overseas medical insurance to give you a hassle-free and memorable experience.
           </h2>
-          <a className='flex felx-row align-middle justify-center items-center' href='/booking'>
+          <a className='flex felx-row align-middle justify-center items-center' href='/book-ticket'>
             <p className="text-sm border font-light border-white/[0.2] rounded-full mt-4 text-white px-2 py-0.5 hover:bg-blue-600">
               Book Now
             </p>
@@ -182,7 +182,7 @@ const Home = () => {
           <h2 className="text-white mt-4 text-sm font-light">
           Be it the spiritual devotee seeking blessings of Tirupati, Shirdi or Mata Vaishno Devi or the leisure traveller wanting to relish the Blue mountains of North East, Sand-dunes of Rajasthan, Hamlets of Ladakh, Wonders of Himalayas, Serene lakes or Picturesque Islands, IRCTC has it all. Discover India through IRCTC!
           </h2>
-          <a className='flex felx-row align-middle justify-center items-center' href='/booking'>
+          <a className='flex felx-row align-middle justify-center items-center' href='/book-ticket'>
             <p className="text-sm border font-light border-white/[0.2] rounded-full mt-4 text-white px-2 py-0.5 hover:bg-blue-600">
               Book Now
             </p>
@@ -204,7 +204,7 @@ const Home = () => {
           <h2 className="text-white mt-4 text-sm font-light">
           IRCTC operates Bharat Gaurav Tourist Train having AC III-Tier accommodation on train specially designed to promote domestic tourism in India. This train runs on various theme based circuits covering pilgrimage and heritage destinations in its itinerary on a 5 days to 20 days trip and showcase India’s rich cultural heritage
           </h2>
-          <a className='flex felx-row align-middle justify-center items-center' href='/booking'>
+          <a className='flex felx-row align-middle justify-center items-center' href='/book-ticket'>
             <p className="text-sm border font-light border-white/[0.2] rounded-full mt-4 text-white px-2 py-0.5 hover:bg-blue-600">
               Book Now
             </p>
@@ -227,7 +227,7 @@ const Home = () => {
           <h2 className="text-white mt-4 text-sm font-light">
           IRCTC offers Exclusive Rail tour packages with confirmed train tickets, sight-seeing and meals for enchanting Nilgiri Mountains, Darjeeling, Kullu Manali, Kashmir, Gangtok or divine tours of Mata Vaishno Devi, Rameswaram, Madurai, Shirdi, Tirupati etc. Holiday packages/ Land packages to these destinations are also available.
           </h2>
-          <a className='flex felx-row align-middle justify-center items-center' href='/booking'>
+          <a className='flex felx-row align-middle justify-center items-center' href='/book-ticket'>
           <p className="text-sm border font-light border-white/[0.2] rounded-full mt-4 text-white px-2 py-0.5 hover:bg-blue-600">
             Book Now
           </p>
@@ -307,77 +307,77 @@ export default withSplashScreen(Home);
 export const products = [
   {
     title: "Easy Ticket Booking",
-    link: "/booking",
+    link: "/book-ticket",
     thumbnail: img1
   },
   {
     title: "Secure Payment Processing",
-    link: "/booking",
+    link: "/book-ticket",
     thumbnail: img11
   },
   {
     title: "Real-time Train Tracking",
-    link: "/booking",
+    link: "/book-ticket",
     thumbnail: img3
   },
   {
     title: "User-Friendly Interface",
-    link: "/booking",
+    link: "/book-ticket",
     thumbnail: img4
   },
   {
     title: "Customized Booking Options",
-    link: "/booking",
+    link: "/book-ticket",
     thumbnail: img5
   },
   {
     title: "24/7 Customer Support",
-    link: "/booking",
+    link: "/book-ticket",
     thumbnail: img6
   },
   {
     title: "Personalized Travel Recommendations",
-    link: "/booking",
+    link: "/book-ticket",
     thumbnail: img7
   },
   {
     title: "Seamless Integration with Travel Apps",
-    link: "/booking",
+    link: "/book-ticket",
     thumbnail: img8
   },
   {
     title: "Efficient Seat Selection",
-    link: "/booking",
+    link: "/book-ticket",
     thumbnail: img9
   },
   {
     title: "Exclusive Discounts and Offers",
-    link: "/booking",
+    link: "/book-ticket",
     thumbnail: img10
   },
   {
     title: "Easy Ticket Booking",
-    link: "/booking",
+    link: "/book-ticket",
     thumbnail: img11
   },
   {
     title: "Secure Payment Processing",
-    link: "/booking",
+    link: "/book-ticket",
     thumbnail: img1
   },
   {
     title: "Real-time Train Tracking",
-    link: "/booking",
+    link: "/book-ticket",
     thumbnail: img3
   },
   {
     title: "User-Friendly Interface",
-    link: "/booking",
+    link: "/book-ticket",
     thumbnail: img4
   },
   {
     title: "Customized Booking Options",
-    link: "/booking",
+    link: "/book-ticket",
     thumbnail: img5
   },
 ];

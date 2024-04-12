@@ -1,8 +1,6 @@
-import { FaLocationArrow } from 'react-icons/fa';
+import {  FaAngleDown, FaAngleUp, FaLocationArrow } from 'react-icons/fa';
 import { VscLocation } from "react-icons/vsc";
-// import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons"
 import { format } from 'date-fns';
-import img1 from '../../assets/bg_1.jpg'
 import { useEffect, useState } from 'react'
 import { BackgroundBeams } from '../ui/background-beams'
 import { Label } from "../ui/label";
@@ -24,111 +22,106 @@ import {
 } from "../ui/command"
 import { Calendar } from '../ui/calendar';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-
 type T1 = {
-  value: string
-  label: string
-}
-const Classes:T1[] = [
-  {
-    value: "all",
-    label: "All Classes",
-  },
-  {
-    value: "1a",
-    label: "AC First Class (1A)",
-  },
-  {
-    value: "2a",
-    label: "AC 2 Tier (2A)",
-  },
-  {
-    value: "3a",
-    label: "AC 3 Tier (3A)",
-  },
-  {
-    value: "sleeper",
-    label: "Sleeper",
-  },
-]
-const Coaches :T1[]= [
-  {
-    value: "general",
-    label: "General",
-  },
-  {
-    value: "ladies",
-    label: "Ladies",
-  },
-  {
-    value: "tatkal",
-    label: "Tatkal",
-  },
-  {
-    value: "lowerbirth",
-    label: "Lower Berth",
-  },
-  {
-    value: "pwd",
-    label: "Person with Disability",
-  },
-]
-
-const Booking = () => {
-  const navigate=useNavigate();
-  const handleSearchClick = () => {
-    navigate('train-list');
+    value: string
+    label: string
   }
-  const [stationsList, setStationsList] = useState<T1[]>([{
-    value: "s1",
-    label: "station1",
-  },
-  {
-    value: "s2",
-    label: "station2",
-  },]);
-  const [opens1, setOpens1] = useState(false)
-  const [stvalue1, setStValue1] = useState<T1 | null>(null)
-  const [opens2, setOpens2] = useState(false)
-  const [stvalue2, setStValue2] = useState<T1 | null>(null)
-    const [showDiv,setShowDiv]=useState(false);
-    const [open1, setOpen1] = useState(false)
-    const [value1, setValue1] = useState<T1 | null>(null)
-    const [open2, setOpen2] = useState(false)
-    const [value2, setValue2] = useState<T1 | null>(null)
-    const [date, setDate] = useState<Date>()
-    useEffect(() => {  
-    axios.get('http://localhost:3000/api/v1/admin/stationdb')
-    .then(response => {
-      const tmp=[];
-      for(let i=0;i<response.data.data.length;i++){
-        tmp.push({value: response.data.data[i].stationNumber.toString(), label: response.data.data[i].stationName});
-      }
-      setStationsList(tmp);
-    })
-    .catch(error => {
-        console.log( error.message );
-    });
-      const handleKeyDown = (event: KeyboardEvent) => {
-        if (event.key === "Escape") {
-          setShowDiv(false);
+  const Classes:T1[] = [
+    {
+      value: "all",
+      label: "All Classes",
+    },
+    {
+      value: "1a",
+      label: "AC First Class (1A)",
+    },
+    {
+      value: "2a",
+      label: "AC 2 Tier (2A)",
+    },
+    {
+      value: "3a",
+      label: "AC 3 Tier (3A)",
+    },
+    {
+      value: "sleeper",
+      label: "Sleeper",
+    },
+  ]
+  const Coaches :T1[]= [
+    {
+      value: "general",
+      label: "General",
+    },
+    {
+      value: "ladies",
+      label: "Ladies",
+    },
+    {
+      value: "tatkal",
+      label: "Tatkal",
+    },
+    {
+      value: "lowerbirth",
+      label: "Lower Berth",
+    },
+    {
+      value: "pwd",
+      label: "Person with Disability",
+    },
+  ]
+const TrainList = () => {
+    const [filter1,setFilter1]=useState(false);
+    
+    const [stationsList, setStationsList] = useState<T1[]>([{
+        value: "s1",
+        label: "station1",
+      },
+      {
+        value: "s2",
+        label: "station2",
+      },]);
+      const [opens1, setOpens1] = useState(false)
+      const [stvalue1, setStValue1] = useState<T1 | null>(null)
+      const [opens2, setOpens2] = useState(false)
+      const [stvalue2, setStValue2] = useState<T1 | null>(null)
+        const [showDiv,setShowDiv]=useState(false);
+        const [open1, setOpen1] = useState(false)
+        const [value1, setValue1] = useState<T1 | null>(null)
+        const [open2, setOpen2] = useState(false)
+        const [value2, setValue2] = useState<T1 | null>(null)
+        const [date, setDate] = useState<Date>()
+        useEffect(() => {  
+        axios.get('http://localhost:3000/api/v1/admin/stationdb')
+        .then(response => {
+          const tmp=[];
+          for(let i=0;i<response.data.data.length;i++){
+            tmp.push({value: response.data.data[i].stationNumber.toString(), label: response.data.data[i].stationName});
+          }
+          setStationsList(tmp);
+        })
+        .catch(error => {
+            console.log( error.message );
+        });
+          const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === "Escape") {
+              setShowDiv(false);
+            }
+          };
+          window.addEventListener("keydown", handleKeyDown);
+          return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+          };
+        }, []);
+        const swapST = () => {
+          const temp = stvalue1;
+          setStValue1(stvalue2);
+          setStValue2(temp);
         }
-      };
-      window.addEventListener("keydown", handleKeyDown);
-      return () => {
-        window.removeEventListener("keydown", handleKeyDown);
-      };
-    }, []);
-    const swapST = () => {
-      const temp = stvalue1;
-      setStValue1(stvalue2);
-      setStValue2(temp);
-    }
-    // console.log(Coaches);
+      
   return (
     <div className='overflow-x-hidden'>
-    <motion.div className='h-screen w-screen flex flex-col justify-center items-center z-0 top-0 left-0 opacity-60 space-y-10 pb-8'
+    <motion.div className='h-[200rem] w-screen flex flex-col justify-center items-center z-0 top-0 left-0 opacity-60 space-y-8 px-4'
     onClick={()=>{showDiv?setShowDiv(false):null}}
     initial={{ opacity: 1}}
     animate={{ opacity: showDiv ? 0.6:1}}
@@ -138,19 +131,18 @@ const Booking = () => {
             <a href='/'><img src={logo} className='h-8 w-8 '/></a>
             <Menu className='border-2 border-zinc-800 rounded h-8 w-8 cursor-pointer z-10' onClick={()=>{setShowDiv(!showDiv)}}/>
         </div>
-        <div className='w-full h-full flex flex-row mb-8'>
-        <div className='h-full w-1/2 border-2 border-zinc-100 rounded-xl py-4 ml-6 pt-8'>
-          <h1 className='text-white text-center font-serif text-3xl'>Book Ticket</h1>
+        <div className='h-36 w-full border-2 border-zinc-100 rounded pt-2 m-2 px-6 flex flex-col'>
           <div className='flex flex-row justify-center items-center p-2 space-x-4'>
           <div className='flex flex-col space-y-2'>
             <Label className='text-white'>From</Label>
             <Popover open={opens1} onOpenChange={setOpens1}>
               <PopoverTrigger asChild>
-              <div className="space-x-2 flex flex-row"><FaLocationArrow color="white" className="mt-2"/>
-                <Button1 variant="outline" className="w-[150px] justify-start bg-white hover:bg-white rounded">
-                  {stvalue1 ? <>{stvalue1.label}</> : <>From</>}
+                <Button1 variant="outline" className="w-[150px] justify-start bg-white hover:bg-white rounded p-0">
+                <div className="space-x-2 flex flex-row">
+                    <FaLocationArrow color="black" className="mt-1 ml-2 mr-2"/>
+                    {stvalue1 ? <>{stvalue1.label}</> : <h1>From</h1>}
+                </div>
                 </Button1>
-              </div>
               </PopoverTrigger>
               <PopoverContent className="p-0 bg-white" side="bottom" align="start">
                 <Command>
@@ -179,16 +171,17 @@ const Booking = () => {
               </PopoverContent>
             </Popover>
             </div>
-            <ArrowLeftRightIcon className='h-6 w-6 text-white mt-4 cursor-pointer' onClick={swapST}/>
+            <ArrowLeftRightIcon className='h-6 w-6 text-black mt-4 cursor-pointer bg-zinc-200 rounded px-0 mx-0' onClick={swapST}/>
             <div className='flex flex-col space-y-2'>
-            <Label className='text-white'>To</Label>
+            <Label className='text-white pl-0 ml-0'>To</Label>
             <Popover open={opens2} onOpenChange={setOpens2}>
               <PopoverTrigger asChild>
-              <div className="space-x-2 flex flex-row"><VscLocation color="white" className="mt-2 h-6 w-6"/>
-                <Button1 variant="outline" className="w-[150px] justify-start bg-white hover:bg-white rounded">
-                  {stvalue2 ? <>{stvalue2.label}</> : <>To</>}
+                <Button1 variant="outline" className="w-[150px] justify-start bg-white hover:bg-white rounded p-0">
+                    <div className="space-x-1 flex flex-row">
+                    <VscLocation color="black" className="pl-1 h-6 w-6 mr-1"/>
+                    {stvalue2 ? <>{stvalue2.label}</> : <h1>To</h1>}
+                    </div>
                 </Button1>
-              </div>
               </PopoverTrigger>
               <PopoverContent className="p-0 bg-white" side="bottom" align="start">
                 <Command>
@@ -217,8 +210,7 @@ const Booking = () => {
               </PopoverContent>
             </Popover>
             </div>
-          </div>
-          <div className='flex flex-row justify-center items-center p-4 space-x-4'>
+            <div className='w-4'></div>
           <div className='flex flex-col space-y-2'>
             <Label className='text-white'>Coaches</Label>
             <Popover open={open2} onOpenChange={setOpen2}>
@@ -296,7 +288,7 @@ const Booking = () => {
               <Button1
                 variant={"outline"}
                 className={cn(
-                  "w-[240px] justify-start text-left font-normal bg-white hover:bg-white",
+                  "w-[180px] justify-start text-left font-normal bg-white hover:bg-white rounded",
                   !date && "text-muted-foreground"
                 )}
               >
@@ -315,33 +307,69 @@ const Booking = () => {
             </PopoverContent>
             </Popover>
             </div>
+            <Button1 className='bg-blue-500 rounded-xl hover:bg-blue-400 w-40 font-serif text-md items-center justify-center mt-5'>Modify Search</Button1>
           </div>
-          <div className='flex flex-row justify-between items-center p-4 space-x-4'>
+          <div className='flex flex-row justify-between items-center m-4 space-x-4 px-12'>
             <div className='space-x-4'><Checkbox className='text-white border-white'/><Label className='text-white'>Person With Disability Concession</Label></div>
             <div className='space-x-4'><Checkbox className='text-white border-white'/><Label className='text-white'>Flexible With Date</Label></div>
-          </div>
-          <div className='flex flex-row justify-between items-center p-4 space-x-4'>
             <div className='space-x-4'><Checkbox className='text-white border-white'/><Label className='text-white'>Train with Available Berth</Label></div>
             <div className='space-x-4'><Checkbox className='text-white border-white'/><Label className='text-white'>Railway Pass Concession</Label></div>
+            <div className='w-32'></div>
           </div>
-          <div className='w-full flex justify-center pt-4'><Button1 className='bg-blue-600 rounded-xl hover:bg-blue-500 w-40 font-serif text-lg items-center justify-center' onClick={handleSearchClick}>Search</Button1></div>
-
         </div>
-        <motion.div id="imgEl" className="h-full w-1/2 flex justify-center items-center pt-4 px-8"
-            initial={{
-              opacity: 0,
-              x: 100
-            }}
-          whileInView={{
-          opacity: 1,
-          x: 0, // Slide in to its original position
-          transition: {
-            duration: 0.7 // Animation duration
-          }}}>
-          <div className="h-4/5 w-screen p-1 bg-zinc-600 rounded-2xl">
-          <img src={img1} alt="logo"  className="h-full w-full rounded-2xl"/>
-          </div>
-        </motion.div>
+        <div className='flex flex-row w-full h-full'>
+            <div className='w-1/5 h-[100rem] bg-emerald-100 justify-start l-0 flex flex-col'>
+                <div className='flex flex-row justify-between px-4 pt-3'>
+                    <h1 className='font-mono pt-1'>Refine Results</h1>
+                    <Button1 className='rounded m-0 bg-orange-200 hover:bg-orange-100  text-md top-0 h-7 p-3'>Reset</Button1>
+                </div>
+                <div className='border-t border-zinc-800 my-2'></div>
+                <div className='flex flex-row justify-between px-2 pt-2'>
+                    <h1 className='font-medium pt-1'>Departure Time</h1>
+                    <Button1 className='rounded m-0 bg-orange-200 hover:bg-orange-100  text-md top-0 h-7 p-3'>All</Button1>
+                    <Button1 className='rounded m-0 bg-orange-200 hover:bg-orange-100  text-md top-0 h-7 p-3' onClick={()=>{setFilter1(!filter1);}}>{filter1?<FaAngleDown /> : <FaAngleUp />}</Button1>
+                </div>
+                <div className='border-t border-zinc-800 mt-3'></div>
+                    <motion.div className='w-full bg-white z-10 flex flex-col mt-2' 
+                    initial={{ opacity: 0, height: 0, overflow: 'hidden' }}
+                    animate={{ opacity: filter1 ? 1 : 0, height: filter1 ? 80 : 0, overflow: 'hidden' }}
+                    transition={{ duration: 0.5 }}
+                    ></motion.div>
+                <div className='flex flex-row justify-between px-2 pt-2'>
+                    <h1 className='font-medium pt-1'>Departure Time</h1>
+                    <Button1 className='rounded m-0 bg-orange-200 hover:bg-orange-100  text-md top-0 h-7 p-3'>All</Button1>
+                    <Button1 className='rounded m-0 bg-orange-200 hover:bg-orange-100  text-md top-0 h-7 p-3' onClick={()=>{setFilter1(!filter1);}}>{filter1?<FaAngleDown /> : <FaAngleUp />}</Button1>
+                </div>
+                <div className='border-t border-zinc-800 mt-3'></div>
+                    <motion.div className='w-full bg-white z-10 flex flex-col mt-2' 
+                    initial={{ opacity: 0, height: 0, overflow: 'hidden' }}
+                    animate={{ opacity: filter1 ? 1 : 0, height: filter1 ? 80 : 0, overflow: 'hidden' }}
+                    transition={{ duration: 0.5 }}
+                    ></motion.div>
+                    <div className='flex flex-row justify-between px-2 pt-2'>
+                    <h1 className='font-medium pt-1'>Departure Time</h1>
+                    <Button1 className='rounded m-0 bg-orange-200 hover:bg-orange-100  text-md top-0 h-7 p-3'>All</Button1>
+                    <Button1 className='rounded m-0 bg-orange-200 hover:bg-orange-100  text-md top-0 h-7 p-3' onClick={()=>{setFilter1(!filter1);}}>{filter1?<FaAngleDown /> : <FaAngleUp />}</Button1>
+                </div>
+                <div className='border-t border-zinc-800 mt-3'></div>
+                    <motion.div className='w-full bg-white z-10 flex flex-col mt-2' 
+                    initial={{ opacity: 0, height: 0, overflow: 'hidden' }}
+                    animate={{ opacity: filter1 ? 1 : 0, height: filter1 ? 80 : 0, overflow: 'hidden' }}
+                    transition={{ duration: 0.5 }}
+                    ></motion.div>
+                    <div className='flex flex-row justify-between px-2 pt-2'>
+                    <h1 className='font-medium pt-1'>Departure Time</h1>
+                    <Button1 className='rounded m-0 bg-orange-200 hover:bg-orange-100  text-md top-0 h-7 p-3'>All</Button1>
+                    <Button1 className='rounded m-0 bg-orange-200 hover:bg-orange-100  text-md top-0 h-7 p-3' onClick={()=>{setFilter1(!filter1);}}>{filter1?<FaAngleDown /> : <FaAngleUp />}</Button1>
+                </div>
+                <div className='border-t border-zinc-800 mt-3'></div>
+                    <motion.div className='w-full bg-white z-10 flex flex-col mt-2' 
+                    initial={{ opacity: 0, height: 0, overflow: 'hidden' }}
+                    animate={{ opacity: filter1 ? 1 : 0, height: filter1 ? 80 : 0, overflow: 'hidden' }}
+                    transition={{ duration: 0.5 }}
+                    ></motion.div>
+                {/*<div className='border-t border-zinc-800 mt-3'></div>*/}
+            </div>
         </div>
     </motion.div>
     <motion.div className='h-screen w-1/4 bg-white z-10 top-0 right-0 fixed flex flex-col ' 
@@ -369,11 +397,9 @@ const Booking = () => {
       <div className='h-2 border-t-2 border-zinc-200 mt-1'></div>
       <div className='flex flex-row items-center justify-center p-2'><Button1 className='bg-blue-600 rounded-xl hover:bg-blue-500 w-40 '><LogOut className='mr-2'/><h1 className='font-serif text-lg '>Logout</h1></Button1></div>
     </motion.div>
-      <BackgroundBeams />
+      <BackgroundBeams className='h-[200rem]'/>
     </div>
-
   )
 }
 
-export default Booking;
-
+export default TrainList

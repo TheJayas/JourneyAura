@@ -16,6 +16,7 @@ import AddStationForm from './components/forms/AddStationForm'
 import EditRouteForm from './components/forms/EditRouteForm'
 import AddRouteForm from './components/forms/AddRouteForm'
 import Booking from './components/MainFeature/Booking';
+import TrainList from './components/MainFeature/TrainList';
 // import { Toaster } from './components/ui/sonner'
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route index element={<Home />} />
         </Route>
         <Route path="book-ticket"  element={<Booking/>} />
+        <Route path="book-ticket/train-list"  element={<TrainList/>} />
         <Route path="sign-up" element={<SignupForm />} />
         <Route path="sign-in" element={<SigninForm />} />
         <Route path="admin" element={<Admin />} />
