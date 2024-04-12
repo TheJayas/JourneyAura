@@ -78,7 +78,8 @@ const Coaches :T1[]= [
 const Booking = () => {
   const navigate=useNavigate();
   const handleSearchClick = () => {
-    navigate('train-list');
+    
+    navigate('train-list',{state:{from:stvalue1,to:stvalue2,date:date,coach:value1,class:value2}});
   }
   const [stationsList, setStationsList] = useState<T1[]>([{
     value: "s1",

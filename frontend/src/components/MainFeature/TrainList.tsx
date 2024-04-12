@@ -1,4 +1,4 @@
-import {  FaAngleDown, FaAngleUp, FaLocationArrow, FaTimes } from 'react-icons/fa';
+import {  FaAngleDown, FaAngleUp, FaLocationArrow } from 'react-icons/fa';
 import { VscLocation } from "react-icons/vsc";
 import { format } from 'date-fns';
 import { useEffect, useState } from 'react'
@@ -6,7 +6,7 @@ import { BackgroundBeams } from '../ui/background-beams'
 import { Label } from "../ui/label";
 import { cn } from "@/utils/cn";
 import logo from "../../assets/icon.svg"
-import { ArrowLeftRightIcon, CalendarIcon,  Clock,  EllipsisVerticalIcon,  GripVerticalIcon,  LogOut, Menu, SeparatorVertical, Timer, User2Icon } from 'lucide-react';
+import { ArrowLeftRightIcon, CalendarIcon,  Clock,  EllipsisVerticalIcon,  GripVerticalIcon,  LogOut, Menu,  User2Icon } from 'lucide-react';
 import { Button } from '../ui/moving-border';
 import { Button as Button1}  from '../ui/button';
 import { motion } from 'framer-motion';
@@ -22,6 +22,7 @@ import {
 } from "../ui/command"
 import { Calendar } from '../ui/calendar';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 type T1 = {
     value: string
     label: string
@@ -70,28 +71,48 @@ type T1 = {
       label: "Person with Disability",
     },
   ]
+  type T2 = {
+    trainNumber: number
+    from: number
+    to: number
+    fromTime: string
+    toTime: string
+    availableSeats: number
+  }
 const TrainList = () => {
+  const location = useLocation();
+    const [trainList, setTrainList] = useState<T2[]>([])
     const [filter1,setFilter1]=useState(false);
-    
     const [stationsList, setStationsList] = useState<T1[]>([{
-        value: "s1",
-        label: "station1",
-      },
-      {
-        value: "s2",
-        label: "station2",
-      },]);
-      const [opens1, setOpens1] = useState(false)
-      const [stvalue1, setStValue1] = useState<T1 | null>(null)
-      const [opens2, setOpens2] = useState(false)
-      const [stvalue2, setStValue2] = useState<T1 | null>(null)
-        const [showDiv,setShowDiv]=useState(false);
-        const [open1, setOpen1] = useState(false)
-        const [value1, setValue1] = useState<T1 | null>(null)
-        const [open2, setOpen2] = useState(false)
-        const [value2, setValue2] = useState<T1 | null>(null)
-        const [date, setDate] = useState<Date>()
-        useEffect(() => {  
+      value: "1",
+      label: "station1",
+    },
+    {
+      value: "2",
+      label: "station2",
+    },]);
+    const [opens1, setOpens1] = useState(false)
+    const [stvalue1, setStValue1] = useState<T1 | null>(null)
+    const [opens2, setOpens2] = useState(false)
+    const [stvalue2, setStValue2] = useState<T1 | null>(null)
+    const [showDiv,setShowDiv]=useState(false);
+    const [open1, setOpen1] = useState(false)
+    const [value1, setValue1] = useState<T1 | null>(null)
+    const [open2, setOpen2] = useState(false)
+    const [value2, setValue2] = useState<T1 | null>(null)
+    const [date, setDate] = useState<Date>(new Date())
+    const formattedDate = date ? `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}` : '';
+    useEffect(() => {  
+      const ress= location.state;
+        if(ress)
+          {
+            console.log(ress);
+            if(ress.from){setStValue1(ress.from);}
+            if(ress.to){setStValue2(ress.to);}
+            if(ress.date){setDate(ress.date);}
+            if(ress.coach){setValue1(ress.coach);}
+            if(ress.class){setValue2(ress.class);}
+          }
         axios.get('http://localhost:3000/api/v1/admin/stationdb')
         .then(response => {
           const tmp=[];
@@ -103,16 +124,29 @@ const TrainList = () => {
         .catch(error => {
             console.log( error.message );
         });
-          const handleKeyDown = (event: KeyboardEvent) => {
-            if (event.key === "Escape") {
-              setShowDiv(false);
-            }
-          };
-          window.addEventListener("keydown", handleKeyDown);
-          return () => {
-            window.removeEventListener("keydown", handleKeyDown);
-          };
-        }, []);
+        const searcData = { 'from': parseInt(stvalue1?.value || '0'), 'to': parseInt(stvalue2?.value || '0'), 'date': formattedDate===''?"1-1-2000":formattedDate};
+        console.log(searcData);
+        axios.post('http://localhost:3000/api/v1/search/searchTrain',searcData)
+        .then(response => {
+          // console.log(response.data.trains);
+          setTrainList(response.data.trains);
+        })
+        .catch(error => {
+            console.log( error.message );
+        });
+
+
+        const handleKeyDown = (event: KeyboardEvent) => {
+          if (event.key === "Escape") {
+            setShowDiv(false);
+          }
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+        return () => {
+          window.removeEventListener("keydown", handleKeyDown);
+        };
+      }, [stvalue1,stvalue2,date]);
         const swapST = () => {
           const temp = stvalue1;
           setStValue1(stvalue2);
@@ -370,11 +404,13 @@ const TrainList = () => {
                     ></motion.div>
                 {/*<div className='border-t border-zinc-800 mt-3'></div>*/}
             </div>
-            <div className='w-full h-40 bg-white m-2 flex flex-col'>
+            <div className='flex flex-col space-y-4'>
+            {trainList.map((train) => (
+            <div className='w-full h-52 bg-white m-2 flex flex-col'>
                 <div className='flex flex-row bg-teal-300 justify-between'>
                     <div className='flex flex-row px-2'>
                         <h1 className='p-1 font-serif text-lg font-black'>Train Name</h1>
-                        <h1 className='p-1 font-serif text-lg font-black'>[Train Number]</h1>
+                        <h1 className='p-1 font-serif text-lg font-black'>{train.trainNumber}</h1>
                     </div>
                     <div className='flex flex-row px-2 my-auto w-60'>
                         <h1>Runs On days</h1>
@@ -386,13 +422,13 @@ const TrainList = () => {
                 <div className='flex flex-row bg-emerald-50 justify-between items-center h-64'>
                     <div className='flex flex-row px-2'>
                         <Clock className='h-5 w-5 mt-2'/>
-                        <h1 className='p-1 font-serif text-lg font-black'>Ar:Tm</h1>
+                        <h1 className='p-1 font-serif text-lg font-black'>{train.fromTime}</h1>
                         <EllipsisVerticalIcon className='h-6 w-6 mt-2'/>
                         <VscLocation className='h-5 w-5 mt-2'/>
-                        <h1 className='p-1 font-serif text-lg font-black'>Ar:Loc</h1>
+                        <h1 className='p-1 font-serif text-lg font-black'>{train.from}</h1>
                         <EllipsisVerticalIcon className='h-6 w-6 mt-2'/>
                         <CalendarIcon className='h-5 w-5 mt-2'/>
-                        <h1 className='p-1 font-serif text-lg font-black'>Ar:Date</h1>
+                        <h1 className='p-1 font-serif text-lg font-black'>DP:Date</h1>
                     </div>
                     <div className='flex flex-row px-2 my-auto '>
                         <GripVerticalIcon className='h-6 w-6 mt-2'/>
@@ -401,10 +437,10 @@ const TrainList = () => {
                     </div>
                     <div className='flex flex-row px-2 my-auto'>
                     <Clock className='h-5 w-5 mt-2'/>
-                        <h1 className='p-1 font-serif text-lg font-black'>Ar:Tm</h1>
+                        <h1 className='p-1 font-serif text-lg font-black'>{train.toTime}</h1>
                         <EllipsisVerticalIcon className='h-6 w-6 mt-2'/>
                         <VscLocation className='h-5 w-5 mt-2'/>
-                        <h1 className='p-1 font-serif text-lg font-black'>Ar:Loc</h1>
+                        <h1 className='p-1 font-serif text-lg font-black'>{train.to}</h1>
                         <EllipsisVerticalIcon className='h-6 w-6 mt-2'/>
                         <CalendarIcon className='h-5 w-5 mt-2'/>
                         <h1 className='p-1 font-serif text-lg font-black'>Ar:Date</h1>
@@ -413,7 +449,7 @@ const TrainList = () => {
                 <div className='flex flex-row bg-white justify-start'>
                     <div className='flex flex-col px-2 rounded border-2 border-zinc-800 m-4 bg-zinc-200'>
                         <h1 className='px-1 font-mono text-lg font-black'>Sleeper (SL)</h1>
-                        <h1>Av.Seat</h1>
+                        <h1>{train.availableSeats}</h1>
                     </div>
                     <div className='flex flex-col px-2 rounded border-2 border-zinc-800 m-4 bg-zinc-200'>
                         <h1 className='px-1 font-mono text-lg font-black'>Sleeper (SL)</h1>
@@ -438,7 +474,8 @@ const TrainList = () => {
                     </div>
                     
                 </div>
-            </div>
+            </div>))}
+          </div>
         </div>
     </motion.div>
     <motion.div className='h-screen w-1/4 bg-white z-10 top-0 right-0 fixed flex flex-col ' 
