@@ -11,10 +11,10 @@ const routeSchema = new mongoose.Schema({
         type:Number
     },
     arrivalTime : {
-        type: Date,
+        type: String,
     },
     departureTime : {
-        type: Date,
+        type: String,
     },
     day : [{
         type:Number
