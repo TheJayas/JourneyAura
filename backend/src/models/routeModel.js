@@ -16,7 +16,9 @@ const routeSchema = new mongoose.Schema({
     departureTime : {
         type: Date,
     },
-    date : Date
+    day : [{
+        type:Number
+    }]
 });
 
 const Route = mongoose.model("Route",routeSchema);
