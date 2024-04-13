@@ -100,18 +100,18 @@ const TrainList = () => {
     const [value1, setValue1] = useState<T1 | null>(null)
     const [open2, setOpen2] = useState(false)
     const [value2, setValue2] = useState<T1 | null>(null)
-    const [date, setDate] = useState<Date>(new Date())
+    const [date, setDate] = useState<Date>()
     const formattedDate = date ? `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}` : '';
     useEffect(() => {  
       const ress= location.state;
         if(ress)
           {
             console.log(ress);
-            if(ress.from){setStValue1(ress.from);}
-            if(ress.to){setStValue2(ress.to);}
-            if(ress.date){setDate(ress.date);}
-            if(ress.coach){setValue1(ress.coach);}
-            if(ress.class){setValue2(ress.class);}
+            if(ress.from && !stvalue1){setStValue1(ress.from);}
+            if(ress.to && !stvalue2){setStValue2(ress.to);}
+            if(ress.date && !date){setDate(ress.date);}
+            if(ress.coach && !value1){setValue1(ress.coach);}
+            if(ress.class && !value2 ){setValue2(ress.class);}
           }
         axios.get('http://localhost:3000/api/v1/admin/stationdb')
         .then(response => {
