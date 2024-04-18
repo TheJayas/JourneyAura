@@ -156,6 +156,8 @@ const updateProfile = asyncHandler(async(req,res)=>{
     const newUserData = {
         name: req.body.name,
         email: req.body.email,
+        phoneNumber: req.body.phoneNumber,
+        address: req.body.address
     }
 
     const user = await User.findByIdAndUpdate(req.user.id,newUserData,{
@@ -163,8 +165,8 @@ const updateProfile = asyncHandler(async(req,res)=>{
         runValidators:true,
         useFindAndModify:false,
     });
-
-    return res.json(new ApiResponse(200,{}));
+    
+    return res.json(new ApiResponse(200,user));
 });
 
 const getUserDetails = asyncHandler(async(req,res)=>{

@@ -21,15 +21,44 @@ import { BackgroundBeams } from "../ui/background-beams";
 import { useState,useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { toast } from "sonner"
 
 export function Cards() {
+    const token=Cookies.get('token');
     const [edit,setEdit] = useState(false);
+    const [name,setName] = useState('');
+    const [email,setEmail] = useState('');
+    const [phoneNumber,setPhoneNumber] = useState('');
+    const [address,setAddress] = useState('');
     const handleEdit = () => {
         setEdit(!edit);
     }
-    const [userDetails,setUserDetails] = useState({name:'',email:'',phoneNumber:'',address:''});
-    const token=Cookies.get('token');
-    console.log(token);
+
+    const handleSave = async() => {
+        setEdit(!edit);
+        const toastId = toast.loading(
+          "Verifying User, Please Wait...",
+        );
+        const newData = {'name':name,'email':email,'phoneNumber':phoneNumber,'address':address};
+        try {
+          await axios.post('http://localhost:3000/api/v1/user/update', newData,{headers:{'token':token}})
+            .then((res) => {
+              console.log(res);
+              if (res.data.success) {
+                toast.success("Data Updated",{id:toastId});
+                console.log("Data Updated");
+              } else {
+                toast.error("Data Not Updated",{id:toastId});
+                console.log("Data Not Updated");
+              }
+            });
+
+        } catch (error) {
+          console.log(error);
+          toast.error("Error in Updating Data");
+        }
+    }
+    
     useEffect(
         ()=>{
           async function fetchData(){
@@ -38,8 +67,14 @@ export function Cards() {
               console.log('res', res)
               if(res.data.success)
                 {
-                  setUserDetails(res.data.data);
-                  console.log('deatails',userDetails);
+                  const name = res.data.data.name;
+                  const email = res.data.data.email;
+                  const phoneNumber = res.data.data.phoneNumber;
+                  const address = res.data.data.address;
+                  setName(name);
+                  setEmail(email);
+                  setPhoneNumber(phoneNumber);
+                  setAddress(address);
                 }
             }
             catch(err){
@@ -54,7 +89,7 @@ export function Cards() {
   return (
     <Card className="w-[500px] h-[550px] bg-transparent rounded-xl">
       <CardHeader>
-        <CardTitle className="text-white font-serif">Welcome {userDetails.name}</CardTitle>
+        <CardTitle className="text-white font-serif">Welcome {name}</CardTitle>
         <CardDescription className="text-white font-serif">Your Journey Details at Tips</CardDescription>
       </CardHeader>
       <CardContent>
@@ -64,17 +99,17 @@ export function Cards() {
                 <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="profile" className="w-20 h-30 rounded-full" />
             </div>
             <div className="flex flex-col space-y-1.5 font-serif">
-                <Label className="text-white" htmlFor="name">Name</Label>
-                <Input id="name" value={userDetails.name} readOnly={!edit && true}/>
-                <Label className="text-white" htmlFor="email">Email</Label>
-                <Input id="email" value={userDetails.email} readOnly={!edit && true}/>
-                <Label className="text-white" htmlFor="number">Phone Number</Label>
-                <Input id="number" value={userDetails.phoneNumber} readOnly={!edit && true}/>
-                <Label className="text-white" htmlFor="address">Address</Label>
-                <Input id="address" value={userDetails.address} readOnly={!edit && true}/>
-                {/* {props.passengers.map((passengers: any) => (
-                    <Label key={passengers.id}>{passengers.name}</Label>
-                ))} */}
+              <Label className="text-white" htmlFor="name">Name</Label>
+              <Input id="name" value={name} onChange={(e) => setName(e.target.value)} readOnly={!edit && true}/>
+              <Label className="text-white" htmlFor="email">Email</Label>
+              <Input id="email" value={email} onChange={(e) => setEmail(e.target.value)} readOnly={!edit && true}/>
+              <Label className="text-white" htmlFor="number">Phone Number</Label>
+              <Input id="number" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} readOnly={!edit && true}/>
+              <Label className="text-white" htmlFor="address">Address</Label>
+              <Input id="address" value={address} onChange={(e) => setAddress(e.target.value)} readOnly={!edit && true}/>
+              {/* {props.passengers.map((passengers: any) => (
+                <Label key={passengers.id}>{passengers.name}</Label>
+              ))} */}
             </div>
             {/* <div className="flex flex-col space-y-1.5">
               <Label htmlFor="framework">Framework</Label>
@@ -95,7 +130,7 @@ export function Cards() {
       </CardContent>
     <CardFooter className="flex justify-center space-x-2">
         <Button onClick={handleEdit} className="text-white hover:bg-white" variant="outline">Edit</Button>
-        {edit && <Button onClick={handleEdit} className="text-white hover:bg-white" variant="outline">Save</Button>}
+        {edit && <Button onClick={handleSave} className="text-white hover:bg-white" variant="outline">Save</Button>}
     </CardFooter>
     </Card>
   )
