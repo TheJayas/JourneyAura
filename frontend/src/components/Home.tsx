@@ -60,29 +60,12 @@ const Home = () => {
       if (rootEl) {
         rootEl.style.overflowY = "hidden";
       }
-      const text3 = document.querySelector<HTMLParagraphElement>("#text3");
-      if (text3) {
-        const opacity = Math.min(window.scrollY / 400, 1);
-        const fontSize = 40 + window.scrollY / 50;
-        text3.style.opacity = opacity.toString();
-        text3.style.fontSize = `${fontSize}px`;
-        const text3Rect = text3.getBoundingClientRect();
-        const text3Top = text3Rect.top;
-        if (text3Top < text3Rect.height*4 + 8 ) {
-          const opacity1 = Math.min(text3Top/130, 1);
-          const fontSize1 = 40 + text3Top/ 30;
-          text3.style.opacity = opacity1.toString();
-          text3.style.transition = "font-size 0.1s linear";
-          text3.style.fontSize = `${fontSize1}px`;
-        }
-      }
-
     };
     document.addEventListener("scroll", divAnimate);
     return () => document.removeEventListener("scroll", divAnimate);
   },[])
   return (
-    <div className='overflow-x-hidden overflow-y-hidden w-full h-[950vh] flex flex-col'>
+    <div className='overflow-x-hidden overflow-y-hidden w-full h-[1000vh] flex flex-col'>
       <motion.div className='flex flex-row overflow-x-hidden overflow-y-hidden' id='inner'>
       <motion.div className="flex flex-col gap-7 items-center justify-center px-4" id='textEl'
             initial={{
@@ -236,7 +219,7 @@ const Home = () => {
           </div>  
         </div>
       </div>
-      <div className='w-full flex flex-row'>
+      <div className='w-full flex flex-row pt-40'>
         <div className='w-1/2 h-40 mt-20 bg-gradient-to-r from-zinc-900 to-[#717568] flex flex-row items-center justify-center space-x-4'>
             <h1 className='text-center text-zinc-300 font-serif pr-4'>Establish Communication With Us</h1>
             <SocialIcon url="mailto:shivam181106@gmail.com" className='h-8 w-8 text-zinc-300 items-center justify-center'/>
@@ -292,13 +275,13 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className='text-center p-4 bg-zinc-300'>
+      <div className='text-center p-4 bg-zinc-300 bottom-0'>
         © 2021 Copyright  :
         <a className='font-medium pl-2' href='https://mdbootstrap.com/'>
           Journeyaura.com
         </a>
       </div>
-      <BackgroundBeams className={"h-[950vh]"}/>
+      <BackgroundBeams className={"h-[1000vh]"}/>
 
     </div>
   )

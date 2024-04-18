@@ -29,7 +29,7 @@ const Navbar = () => {
   // if(token){console.log(token);}
   const [active, setActive] = useState<string | null>(null);
     return (
-        <div className="fixed top-6 inset-x-0 max-w-md mx-auto z-20">
+        <div className="fixed top-6 inset-x-0 max-w-md mx-auto z-10">
         <Menu setActive={setActive}>
           <MenuItem setActive={setActive} active={active} item="Trains">
             <div className="flex flex-col space-y-4 text-sm">
