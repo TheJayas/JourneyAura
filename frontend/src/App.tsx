@@ -17,6 +17,7 @@ import EditRouteForm from './components/forms/EditRouteForm'
 import AddRouteForm from './components/forms/AddRouteForm'
 import Booking from './components/MainFeature/Booking';
 import TrainList from './components/MainFeature/TrainList';
+import Profile from './components/Profile';
 // import { Toaster } from './components/ui/sonner'
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
         <Route path="admin/stations" element={<Stations />} />
         <Route path="admin/stations/:id" element={<EditStationForm />} />
         <Route path="admin/stations/add" element={<AddStationForm />} />
+        <Route path="/dashboard" element={<Profile />} />
         <Route path="*" element={<div className='h-screen w-screen bg-black flex flex-col items-center justify-center'><h1 className='text-red-600 font-mono text-4xl animate-pulse'>Error 404 : Page not found !!</h1></div>} />
       </Routes>
       </BrowserRouter>
