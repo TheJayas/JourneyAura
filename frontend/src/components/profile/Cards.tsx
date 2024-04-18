@@ -1,5 +1,4 @@
 import * as React from "react"
-import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -19,17 +18,43 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { BackgroundBeams } from "../ui/background-beams";
+import { useState,useEffect } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
 
-export function Cards(props:any) {
+export function Cards() {
     const [edit,setEdit] = useState(false);
     const handleEdit = () => {
         setEdit(!edit);
     }
+    const [userDetails,setUserDetails] = useState({name:'',email:'',phoneNumber:'',address:''});
+    const token=Cookies.get('token');
+    console.log(token);
+    useEffect(
+        ()=>{
+          async function fetchData(){
+            try{
+              const res = await axios.get('http://localhost:3000/api/v1/user/me',{headers:{'token':token}});
+              console.log('res', res)
+              if(res.data.success)
+                {
+                  setUserDetails(res.data.data);
+                  console.log('deatails',userDetails);
+                }
+            }
+            catch(err){
+              console.log(err);
+            }
+          }
+          fetchData();
     
+        },
+        []
+      )
   return (
     <Card className="w-[500px] h-[550px] bg-transparent rounded-xl">
       <CardHeader>
-        <CardTitle className="text-white font-serif">Welcome {props.props.name}</CardTitle>
+        <CardTitle className="text-white font-serif">Welcome {userDetails.name}</CardTitle>
         <CardDescription className="text-white font-serif">Your Journey Details at Tips</CardDescription>
       </CardHeader>
       <CardContent>
@@ -40,13 +65,13 @@ export function Cards(props:any) {
             </div>
             <div className="flex flex-col space-y-1.5 font-serif">
                 <Label className="text-white" htmlFor="name">Name</Label>
-                <Input id="name" value={props.props.name} readOnly={!edit && true}/>
+                <Input id="name" value={userDetails.name} readOnly={!edit && true}/>
                 <Label className="text-white" htmlFor="email">Email</Label>
-                <Input id="email" value={props.props.email} readOnly={!edit && true}/>
+                <Input id="email" value={userDetails.email} readOnly={!edit && true}/>
                 <Label className="text-white" htmlFor="number">Phone Number</Label>
-                <Input id="number" value={props.props.phoneNumber} readOnly={!edit && true}/>
+                <Input id="number" value={userDetails.phoneNumber} readOnly={!edit && true}/>
                 <Label className="text-white" htmlFor="address">Address</Label>
-                <Input id="address" value={props.props.address} readOnly={!edit && true}/>
+                <Input id="address" value={userDetails.address} readOnly={!edit && true}/>
                 {/* {props.passengers.map((passengers: any) => (
                     <Label key={passengers.id}>{passengers.name}</Label>
                 ))} */}
@@ -69,8 +94,8 @@ export function Cards(props:any) {
         </form>
       </CardContent>
     <CardFooter className="flex justify-center space-x-2">
-        <Button onClick={handleEdit} className="text-white" variant="outline">Edit</Button>
-        {edit && <Button onClick={handleEdit} className="text-white" variant="outline">Save</Button>}
+        <Button onClick={handleEdit} className="text-white hover:bg-white" variant="outline">Edit</Button>
+        {edit && <Button onClick={handleEdit} className="text-white hover:bg-white" variant="outline">Save</Button>}
     </CardFooter>
     </Card>
   )

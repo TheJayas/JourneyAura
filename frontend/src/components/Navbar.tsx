@@ -13,10 +13,12 @@ const Navbar = () => {
     ()=>{
       axios.get('http://localhost:3000/api/v1/user/me',{headers:{'token':token}})
       .then((res)=>{
-        // console.log(res);
+        console.log(res);
         if(res.data.success)
           {
+            const userDet_=res.data.data;
             setUserDet(res.data.data);
+            console.log(userDet);
           }
       })
       .catch((err)=>{
