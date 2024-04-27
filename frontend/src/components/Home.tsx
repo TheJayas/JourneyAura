@@ -45,7 +45,7 @@ const Home = () => {
       const imgEL = document.querySelector<HTMLDivElement>("#imgEl");
       const text1 = document.querySelector<HTMLParagraphElement>("#text1");
       const text2 = document.querySelector<HTMLParagraphElement>("#text2");
-      if (!inner || !innerRect || !textEL || !imgEL || !text1 || !text2) return;
+      if (!inner || !innerRect || !textEL || !imgEL || !text1 || !text2 ) return;
       const k = 300;
       const opacity = 1 - (window.scrollY /k);
       inner.style.opacity = opacity.toString();
@@ -59,6 +59,22 @@ const Home = () => {
       const rootEl = document.querySelector<HTMLDivElement>("#inner");
       if (rootEl) {
         rootEl.style.overflowY = "hidden";
+      }
+      const text3 = document.querySelector<HTMLParagraphElement>("#text3");
+      if (text3) {
+        const opacity = Math.min(window.scrollY / 400, 1);
+        const fontSize = 40 + window.scrollY / 50;
+        text3.style.opacity = opacity.toString();
+        text3.style.fontSize = `${fontSize}px`;
+        const text3Rect = text3.getBoundingClientRect();
+        const text3Top = text3Rect.top;
+        if (text3Top < text3Rect.height*4 + 8 ) {
+          const opacity1 = Math.min(text3Top/130, 1);
+          const fontSize1 = 40 + text3Top/ 30;
+          text3.style.opacity = opacity1.toString();
+          text3.style.transition = "font-size 0.1s linear";
+          text3.style.fontSize = `${fontSize1}px`;
+        }
       }
     };
     document.addEventListener("scroll", divAnimate);
@@ -106,7 +122,7 @@ const Home = () => {
       <div>
         <HeroParallax products={products} />
       </div>
-      <h1 className="text-white text-6xl font-mono pb-4 items-center justify-center flex">HOLIDAYS</h1>
+      <h1 className="text-white text-6xl font-mono pb-4 items-center justify-center flex pt-16">HOLIDAYS</h1>
       <div className='flex flex-col'>
         <div className='flex flex-row'>
         <div className="border border-white/[0.2] flex flex-col items-start max-w-sm mx-auto p-4 relative h-[35rem] mt-10">
@@ -276,7 +292,7 @@ const Home = () => {
         </div>
       </div>
       <div className='text-center p-4 bg-zinc-300 bottom-0'>
-        © 2021 Copyright  :
+        © 2024 Copyright  :
         <a className='font-medium pl-2' href='https://mdbootstrap.com/'>
           Journeyaura.com
         </a>
