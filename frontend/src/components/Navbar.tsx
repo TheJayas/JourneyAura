@@ -1,5 +1,6 @@
 // import React from 'react'
 // import Home from "./Home"
+import { Toaster } from "./ui/sonner";
 import  { useEffect, useState } from "react";
 import { HoveredLink, Menu, MenuItem} from "./ui/navbar-menu";
 import Cookies from 'js-cookie';
@@ -16,9 +17,9 @@ const Navbar = () => {
         console.log(res);
         if(res.data.success)
           {
-            const userDet_=res.data.data;
+            // const userDet_=res.data.data;
             setUserDet(res.data.data);
-            console.log(userDet);
+            // console.log(userDet);
           }
       })
       .catch((err)=>{
@@ -28,10 +29,14 @@ const Navbar = () => {
     },
     []
   )
+  const handleLogOutFunc=()=>{
+    Cookies.remove('token');
+    
+  }
   // if(token){console.log(token);}
   const [active, setActive] = useState<string | null>(null);
     return (
-        <div className="fixed top-6 inset-x-0 max-w-md mx-auto z-10">
+        <div className="fixed top-6 inset-x-0 max-w-md mx-auto z-20">
         <Menu setActive={setActive}>
           <MenuItem setActive={setActive} active={active} item="Trains">
             <div className="flex flex-col space-y-4 text-sm">
@@ -48,7 +53,7 @@ const Navbar = () => {
               <HoveredLink href="/dashboard"><div className="flex flex-row space-x-2"><UserIcon className="h-5 w-4"/> <h1>My Profile</h1></div></HoveredLink>
               <HoveredLink href="/passenger"><div className="flex flex-row space-x-2"><UserSquare2 className="h-5 w-4"/> <h1>Passenger List</h1></div></HoveredLink>
               <HoveredLink href="/reset-password"><div className="flex flex-row space-x-2"><Lock className="h-5 w-4"/> <h1>Change Password</h1></div></HoveredLink>
-              <HoveredLink href="/signout"><div className="flex flex-row space-x-2"><LogOutIcon className="h-5 w-4"/> <h1>Logout</h1></div></HoveredLink>
+              <HoveredLink href="/"><div className="flex flex-row space-x-2" onClick={handleLogOutFunc}><LogOutIcon className="h-5 w-4"/> <h1>Logout</h1></div></HoveredLink>
             </div>
           </MenuItem>
           :
@@ -60,6 +65,7 @@ const Navbar = () => {
           </MenuItem>
           }
         </Menu>
+        <Toaster className="bg-white" />
       </div>
     )
   }

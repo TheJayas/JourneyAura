@@ -25,6 +25,7 @@ import {
 import { Calendar } from '../ui/calendar';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 type T1 = {
   value: string
@@ -76,9 +77,20 @@ const Coaches :T1[]= [
 ]
 
 const Booking = () => {
+  const token=Cookies.get('token');
+  const [userDet,setUserDet]=useState(null);
   const navigate=useNavigate();
+  const handleProfileClick=()=>{
+    navigate('/dashboard')
+  }
+  const handleLoginClick=()=>{
+    navigate('/sign-in')
+  }
+  const handleLogoutClick=()=>{
+    Cookies.remove('token');
+    navigate('/')
+  }
   const handleSearchClick = () => {
-    
     navigate('train-list',{state:{from:stvalue1,to:stvalue2,date:date,coach:value1,class:value2}});
   }
   const [stationsList, setStationsList] = useState<T1[]>([{
@@ -100,6 +112,19 @@ const Booking = () => {
     const [value2, setValue2] = useState<T1 | null>(null)
     const [date, setDate] = useState<Date>()
     useEffect(() => {  
+      axios.get('http://localhost:3000/api/v1/user/me',{headers:{'token':token}})
+      .then((res)=>{
+        console.log(res);
+        if(res.data.success)
+          {
+            // const userDet_=res.data.data;
+            setUserDet(res.data.data);
+            // console.log(userDet);
+          }
+      })
+      .catch((err)=>{
+        console.log(err);
+      });
     axios.get('http://localhost:3000/api/v1/admin/stationdb')
     .then(response => {
       const tmp=[];
@@ -352,7 +377,7 @@ const Booking = () => {
     >
       <div className='flex flex-row w-full bg-zinc-800 h-24 p-2 items-center'>
         <User2Icon className='h-8 w-8 m-6' color='white'/>
-        <Button className='bg-[#bdfbc] font-serif text-white border border-zinc-700'>My Profile</Button>
+        {userDet?<div onClick={handleProfileClick}><Button className='bg-[#bdfbc] font-serif text-white border border-zinc-700 cursor-pointer'>My Profile</Button></div>:<div onClick={handleLoginClick}><Button className='bg-[#bdfbc] font-serif text-white border border-zinc-700 cursor-pointer'>Login</Button></div>}
       </div>
       <div className='flex flex-row items-center justify-center p-3'><Button1 className='bg-blue-600 rounded-xl hover:bg-blue-500 w-40 font-serif text-lg'>Home Page</Button1></div>
       <div className='h-2 border-t-2 border-zinc-200 mt-1'></div>
@@ -368,7 +393,7 @@ const Booking = () => {
       <div className='h-2 border-t-2 border-zinc-200 mt-1'></div>
       <div className='flex flex-row items-center justify-start p-2'><a href='/' className='pl-2 w-40 font-serif text-lg hover:underline'>Change Password</a></div>
       <div className='h-2 border-t-2 border-zinc-200 mt-1'></div>
-      <div className='flex flex-row items-center justify-center p-2'><Button1 className='bg-blue-600 rounded-xl hover:bg-blue-500 w-40 '><LogOut className='mr-2'/><h1 className='font-serif text-lg '>Logout</h1></Button1></div>
+      {userDet?<div className='flex flex-row items-center justify-center p-2'><Button1 className='bg-blue-600 rounded-xl hover:bg-blue-500 w-40 ' onClick={handleLogoutClick}><LogOut className='mr-2'/><h1 className='font-serif text-lg '>Logout</h1></Button1></div>:<></>}
     </motion.div>
       <BackgroundBeams />
     </div>
