@@ -5,7 +5,6 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { ApiError } from "../utils/ApiError.js";
 import { Train } from "../models/trainModel.js";
 import { Station } from "../models/stationModel.js";
-import { sendEmail } from "../utils/sendEmail.js";
 import {User} from "../models/userModel.js";
 
 //register train
@@ -101,16 +100,16 @@ const bookTicket = asyncHandler(async (req, res) => {
     const msg = "Your ticket has been booked successfully.";
 
     // Send email to user
-    const user = await User.findById(userId);
-    const emailResponse = await sendEmail(user.email,"Ticket Booked",msg);
+    // const user = await User.findById(userId);
+    // const emailResponse = await sendEmail(user.email,"Ticket Booked",msg);
 
     if (!booking) {
         return res.json(new ApiError(401, "Unexpected error"));
     }
 
-    if(!emailResponse){
-        return res.json(new ApiError(401, "Email not sent"));
-    }
+    // if(!emailResponse){
+    //     return res.json(new ApiError(401, "Email not sent"));
+    // }
 
     return res.json(new ApiResponse(200, booking));
 });

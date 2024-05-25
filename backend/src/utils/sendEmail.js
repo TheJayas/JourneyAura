@@ -1,20 +1,24 @@
-import {resend} from 'resend';
+import nodemailer from 'nodemailer';
+import asyncHandler from './asyncHandler';
 
-const sendEmail = async (email, subject, text) => {
-    try {
-        await resend({
-            from: 'onboarding@resend.dev',
-            to: email,
-            subject: subject,
-            text: text
-        });
-
-    } catch (error) {
-        console.log(error);
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
     }
-};
+});
 
-export { sendEmail };
+const sendEmail = asyncHandler(async (email, subject, message) => {
+    const mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: email,
+        subject: subject,
+        text: message
+    };
 
+    await transporter.sendMail(mailOptions);
+});
 
+export default sendEmail;
 

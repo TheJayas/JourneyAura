@@ -36,6 +36,20 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Passenger'
     }],
+    cvvNumber: {
+        type: String,
+        required: [true, "Please enter your CVV number"],
+        length: [3, "CVV number must have 3 digits"]
+    },
+    cardNumber: {
+        type: String,
+        required: [true, "Please enter your card number"],
+        length: [16, "Card number must have 16 digits"]
+    },
+    cardExpiry: {
+        type: Date,
+        required: [true, "Please enter your card expiry date"],
+    },
     resetPasswordToken: String,
     resetPasswordExpire: Date,
 });

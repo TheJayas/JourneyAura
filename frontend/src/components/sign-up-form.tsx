@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import axios from "axios";
 
 export function SignupForm() {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const [username, setUsername] = React.useState<string>("");
   const [email, setEmail] = React.useState<string>("");
   const [mobile, setMobile] = React.useState<string>("");
@@ -16,31 +16,36 @@ export function SignupForm() {
   const [password, setPassword] = React.useState<string>("");
   const [confirmPassword, setConfirmPassword] = React.useState<string>("");
 
-  const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
+  const [cvvNumber, setCvvNumber] = React.useState<string>("");
+  const [cardNumber, setCardNumber] = React.useState<string>("");
+  const [cardExpiry, setCardExpiry] = React.useState<string>("");
+
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const toastId = toast.loading(
       "Registering, Please Wait...",
     );
-    if(password!==confirmPassword){toast.error("Passwords do not match", { id: toastId });}
-    const data={'name':username,'email':email,'phoneNumber':mobile,'address':address,'password':password};
+    if (password !== confirmPassword) { toast.error("Passwords do not match", { id: toastId }); }
+    const data = { 'name': username, 'email': email, 'phoneNumber': mobile, 'address': address, 'password': password,'cvvNumber':cvvNumber,'cardNumber':cardNumber,'cardExpiry':cardExpiry};
     try {
       await axios.post("http://localhost:3000/api/v1/user/register", data)
-      .then((res) => {
-        console.log(res);
-        if(res.data.success){
-          toast.success("Registered Successfully", { id: toastId });
-          setTimeout(() => {
-            navigate("/sign-in");
-          }, 2);
-        }else{
-          toast.error("User already exist with this email", { id: toastId });
-        }
-      })
-      .catch((err) => {console.log(err); toast.error("Error Registering", { id: toastId });});
+        .then((res) => {
+          console.log(res);
+          if (res.data.success) {
+            toast.success("Registered Successfully", { id: toastId });
+            setTimeout(() => {
+              navigate("/sign-in");
+            }, 2);
+          } else {
+            toast.error("User already exist with this email", { id: toastId });
+          }
+        })
+        .catch((err) => { console.log(err); toast.error("Error Registering", { id: toastId }); });
     } catch (err) {
       toast.error("Error Registering", { id: toastId });
     }
-    console.log(username,email,mobile,address,password,confirmPassword);
+    console.log(username, email, mobile, address, password, confirmPassword);
     console.log("Form submitted");
   };
   return (
@@ -112,6 +117,43 @@ export function SignupForm() {
                 required
               />
             </LabelInputContainer>
+
+            <LabelInputContainer className="mb-4">
+              <Label htmlFor="cvv" className="text-white">Cvv Number</Label>
+              <Input
+                id="cvv"
+                placeholder="•••"
+                type="password"
+                className="rounded-xl"
+                required
+                onChange={(e) => setCvvNumber(e.target.value)}
+              />
+            </LabelInputContainer>
+
+            <LabelInputContainer className="mb-4">
+              <Label htmlFor="cardNumber" className="text-white">Card Number</Label>
+              <Input
+                id="cardNumber"
+                placeholder="16 digit card number"
+                type="number"
+                className="rounded-xl"
+                required
+                onChange={(e) => setCardNumber(e.target.value)}
+              />
+            </LabelInputContainer>
+
+            <LabelInputContainer className="mb-4">
+              <Label htmlFor="Date" className="text-white">Expiry Date</Label>
+              <Input
+                id="date"
+                placeholder="DD/MM/YY"
+                type="date"
+                className="rounded-xl"
+                required
+                onChange={(e) => setCardExpiry(e.target.value)}
+              />
+            </LabelInputContainer>
+
             <LabelInputContainer className="mb-4">
               <Label htmlFor="password" className="text-white">
                 Password
