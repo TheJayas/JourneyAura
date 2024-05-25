@@ -1,25 +1,20 @@
-import nodeMailer from 'nodemailer'
+import {resend} from 'resend';
 
-const sendEmail = async(options)=>{
+const sendEmail = async (email, subject, text) => {
+    try {
+        await resend({
+            from: 'onboarding@resend.dev',
+            to: email,
+            subject: subject,
+            text: text
+        });
 
-    const transporter = nodeMailer.createTransport({
-        host:process.env.SMPT_HOST,
-        port:process.env.SMPT_PORT,
-        service:process.env.SMPT_SERVICE,
-        auth:{
-            user:process.env.SMPT_MAIL,
-            pass:process.env.SMPT_PASSWORD
-        }
-    })
+    } catch (error) {
+        console.log(error);
+    }
+};
 
-    const mailOptions = {
-        from:"",
-        to:options.email,
-        subject:options.subject,
-        text:options.message,
-    };
+export { sendEmail };
 
-    await transporter.sendMail(mailOptions);
-}
 
-export default sendEmail;
+
