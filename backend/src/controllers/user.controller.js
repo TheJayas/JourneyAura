@@ -3,15 +3,14 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { ApiError } from "../utils/ApiError.js";
 import { sendToken } from "../utils/jwtToken.js";
 import { User } from "../models/userModel.js";
-import sendEmail from "../utils/sendEmail.js";
 import crypto from 'crypto';
 import { Passenger } from "../models/passengerModel.js";
-
+import sendEmail from "../utils/sendEmail.js";
 //register user
 
 const registerUser = asyncHandler(async(req,res)=>{
     
-    const {name,email,password,phoneNumber,address} = req.body;
+    const {name,email,password,phoneNumber,address,cvvNumber,cardNumber,cardExpiry} = req.body;
     const uss= await User.findOne({email:email});
     if(uss){return res.json(new ApiError(400,{'error':"User already exist with this email"}));}
     // console.log(uss);
@@ -23,7 +22,19 @@ const registerUser = asyncHandler(async(req,res)=>{
         password,
         phoneNumber,
         address,
-        pnr
+        cvvNumber,
+        cardNumber,
+        cardExpiry,
+    });
+
+    if(!user){
+        return res.json(new ApiError(400,"Unexpected error"));
+    }
+    
+    sendEmail({
+        email:user.email,
+        subject:"Welcome to Indian Railways",
+        message:`Welcome to Indian Railways. Please keep it safe for future reference.`
     });
 
     sendToken(user,201,res);
@@ -131,7 +142,7 @@ const forgotPassword = asyncHandler(async(req,res)=>{
     const message = `You are receiving this email because you have requested the reset of a password. Please make a PUT request to: \n\n ${resetPasswordUrl}`;
 
     try {
-        await sendEmail({
+        sendEmail({
             email: user.email,
             subject: "Password Recovery",
             message,
@@ -165,7 +176,7 @@ const updateProfile = asyncHandler(async(req,res)=>{
         runValidators:true,
         useFindAndModify:false,
     });
-    
+
     return res.json(new ApiResponse(200,user));
 });
 
